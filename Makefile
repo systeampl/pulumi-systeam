@@ -16,6 +16,7 @@ generate_schema:
 generate_sdk: generate_schema
 	rm -rf sdk/python
 	bin/$(TFGEN) python --out sdk/python/
+	cp README-pypi.md sdk/python/README.md
 
 install: build
 	mkdir -p $(HOME)/.pulumi/plugins/resource-systeam-v$(VERSION)
