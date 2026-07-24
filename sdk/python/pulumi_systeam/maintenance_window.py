@@ -39,11 +39,9 @@ class MaintenanceWindowArgs:
         :param pulumi.Input[str] description: A description of the maintenance window.
         :param pulumi.Input[bool] is_active: Whether the maintenance window is active.
         :param pulumi.Input[bool] is_recurring: Whether the maintenance window is recurring.
-        :param pulumi.Input[int] organization_id: Organization that owns the window. REQUIRED for non-superadmin callers; omit only for a superadmin platform-global
-               window.
+        :param pulumi.Input[int] organization_id: Organization that owns the window. REQUIRED for non-superadmin callers; omit only for a superadmin platform-global window.
         :param pulumi.Input[Sequence[pulumi.Input[int]]] project_ids: List of project IDs included in the maintenance window.
-        :param pulumi.Input[str] recurrence_pattern: Recurrence as JSON when is_recurring=true, e.g.
-               jsonencode({type="weekly",days=[0,3],time="02:00",duration_minutes=120}). days: Mon=0..Sun=6.
+        :param pulumi.Input[str] recurrence_pattern: Recurrence as JSON when is*recurring=true, e.g. jsonencode({type="weekly",days=[0,3],time="02:00",duration*minutes=120}). days: Mon=0..Sun=6.
         :param pulumi.Input[str] timezone: Timezone for the maintenance window.
         """
         pulumi.set(__self__, "end_time", end_time)
@@ -154,8 +152,7 @@ class MaintenanceWindowArgs:
     @pulumi.getter(name="organizationId")
     def organization_id(self) -> Optional[pulumi.Input[int]]:
         """
-        Organization that owns the window. REQUIRED for non-superadmin callers; omit only for a superadmin platform-global
-        window.
+        Organization that owns the window. REQUIRED for non-superadmin callers; omit only for a superadmin platform-global window.
         """
         return pulumi.get(self, "organization_id")
 
@@ -179,8 +176,7 @@ class MaintenanceWindowArgs:
     @pulumi.getter(name="recurrencePattern")
     def recurrence_pattern(self) -> Optional[pulumi.Input[str]]:
         """
-        Recurrence as JSON when is_recurring=true, e.g.
-        jsonencode({type="weekly",days=[0,3],time="02:00",duration_minutes=120}). days: Mon=0..Sun=6.
+        Recurrence as JSON when is*recurring=true, e.g. jsonencode({type="weekly",days=[0,3],time="02:00",duration*minutes=120}). days: Mon=0..Sun=6.
         """
         return pulumi.get(self, "recurrence_pattern")
 
@@ -223,11 +219,9 @@ class _MaintenanceWindowState:
         :param pulumi.Input[bool] is_active: Whether the maintenance window is active.
         :param pulumi.Input[bool] is_recurring: Whether the maintenance window is recurring.
         :param pulumi.Input[str] name: The name of the maintenance window.
-        :param pulumi.Input[int] organization_id: Organization that owns the window. REQUIRED for non-superadmin callers; omit only for a superadmin platform-global
-               window.
+        :param pulumi.Input[int] organization_id: Organization that owns the window. REQUIRED for non-superadmin callers; omit only for a superadmin platform-global window.
         :param pulumi.Input[Sequence[pulumi.Input[int]]] project_ids: List of project IDs included in the maintenance window.
-        :param pulumi.Input[str] recurrence_pattern: Recurrence as JSON when is_recurring=true, e.g.
-               jsonencode({type="weekly",days=[0,3],time="02:00",duration_minutes=120}). days: Mon=0..Sun=6.
+        :param pulumi.Input[str] recurrence_pattern: Recurrence as JSON when is*recurring=true, e.g. jsonencode({type="weekly",days=[0,3],time="02:00",duration*minutes=120}). days: Mon=0..Sun=6.
         :param pulumi.Input[str] start_time: Start time in RFC3339 format.
         :param pulumi.Input[str] timezone: Timezone for the maintenance window.
         """
@@ -330,8 +324,7 @@ class _MaintenanceWindowState:
     @pulumi.getter(name="organizationId")
     def organization_id(self) -> Optional[pulumi.Input[int]]:
         """
-        Organization that owns the window. REQUIRED for non-superadmin callers; omit only for a superadmin platform-global
-        window.
+        Organization that owns the window. REQUIRED for non-superadmin callers; omit only for a superadmin platform-global window.
         """
         return pulumi.get(self, "organization_id")
 
@@ -355,8 +348,7 @@ class _MaintenanceWindowState:
     @pulumi.getter(name="recurrencePattern")
     def recurrence_pattern(self) -> Optional[pulumi.Input[str]]:
         """
-        Recurrence as JSON when is_recurring=true, e.g.
-        jsonencode({type="weekly",days=[0,3],time="02:00",duration_minutes=120}). days: Mon=0..Sun=6.
+        Recurrence as JSON when is*recurring=true, e.g. jsonencode({type="weekly",days=[0,3],time="02:00",duration*minutes=120}). days: Mon=0..Sun=6.
         """
         return pulumi.get(self, "recurrence_pattern")
 
@@ -407,7 +399,8 @@ class MaintenanceWindow(pulumi.CustomResource):
                  timezone: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a MaintenanceWindow resource with the given unique name, props, and options.
+        Manages a maintenance window.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[int]]] check_ids: List of check IDs included in the maintenance window.
@@ -416,11 +409,9 @@ class MaintenanceWindow(pulumi.CustomResource):
         :param pulumi.Input[bool] is_active: Whether the maintenance window is active.
         :param pulumi.Input[bool] is_recurring: Whether the maintenance window is recurring.
         :param pulumi.Input[str] name: The name of the maintenance window.
-        :param pulumi.Input[int] organization_id: Organization that owns the window. REQUIRED for non-superadmin callers; omit only for a superadmin platform-global
-               window.
+        :param pulumi.Input[int] organization_id: Organization that owns the window. REQUIRED for non-superadmin callers; omit only for a superadmin platform-global window.
         :param pulumi.Input[Sequence[pulumi.Input[int]]] project_ids: List of project IDs included in the maintenance window.
-        :param pulumi.Input[str] recurrence_pattern: Recurrence as JSON when is_recurring=true, e.g.
-               jsonencode({type="weekly",days=[0,3],time="02:00",duration_minutes=120}). days: Mon=0..Sun=6.
+        :param pulumi.Input[str] recurrence_pattern: Recurrence as JSON when is*recurring=true, e.g. jsonencode({type="weekly",days=[0,3],time="02:00",duration*minutes=120}). days: Mon=0..Sun=6.
         :param pulumi.Input[str] start_time: Start time in RFC3339 format.
         :param pulumi.Input[str] timezone: Timezone for the maintenance window.
         """
@@ -431,7 +422,8 @@ class MaintenanceWindow(pulumi.CustomResource):
                  args: MaintenanceWindowArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a MaintenanceWindow resource with the given unique name, props, and options.
+        Manages a maintenance window.
+
         :param str resource_name: The name of the resource.
         :param MaintenanceWindowArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -518,11 +510,9 @@ class MaintenanceWindow(pulumi.CustomResource):
         :param pulumi.Input[bool] is_active: Whether the maintenance window is active.
         :param pulumi.Input[bool] is_recurring: Whether the maintenance window is recurring.
         :param pulumi.Input[str] name: The name of the maintenance window.
-        :param pulumi.Input[int] organization_id: Organization that owns the window. REQUIRED for non-superadmin callers; omit only for a superadmin platform-global
-               window.
+        :param pulumi.Input[int] organization_id: Organization that owns the window. REQUIRED for non-superadmin callers; omit only for a superadmin platform-global window.
         :param pulumi.Input[Sequence[pulumi.Input[int]]] project_ids: List of project IDs included in the maintenance window.
-        :param pulumi.Input[str] recurrence_pattern: Recurrence as JSON when is_recurring=true, e.g.
-               jsonencode({type="weekly",days=[0,3],time="02:00",duration_minutes=120}). days: Mon=0..Sun=6.
+        :param pulumi.Input[str] recurrence_pattern: Recurrence as JSON when is*recurring=true, e.g. jsonencode({type="weekly",days=[0,3],time="02:00",duration*minutes=120}). days: Mon=0..Sun=6.
         :param pulumi.Input[str] start_time: Start time in RFC3339 format.
         :param pulumi.Input[str] timezone: Timezone for the maintenance window.
         """
@@ -595,8 +585,7 @@ class MaintenanceWindow(pulumi.CustomResource):
     @pulumi.getter(name="organizationId")
     def organization_id(self) -> pulumi.Output[Optional[int]]:
         """
-        Organization that owns the window. REQUIRED for non-superadmin callers; omit only for a superadmin platform-global
-        window.
+        Organization that owns the window. REQUIRED for non-superadmin callers; omit only for a superadmin platform-global window.
         """
         return pulumi.get(self, "organization_id")
 
@@ -612,8 +601,7 @@ class MaintenanceWindow(pulumi.CustomResource):
     @pulumi.getter(name="recurrencePattern")
     def recurrence_pattern(self) -> pulumi.Output[str]:
         """
-        Recurrence as JSON when is_recurring=true, e.g.
-        jsonencode({type="weekly",days=[0,3],time="02:00",duration_minutes=120}). days: Mon=0..Sun=6.
+        Recurrence as JSON when is*recurring=true, e.g. jsonencode({type="weekly",days=[0,3],time="02:00",duration*minutes=120}). days: Mon=0..Sun=6.
         """
         return pulumi.get(self, "recurrence_pattern")
 

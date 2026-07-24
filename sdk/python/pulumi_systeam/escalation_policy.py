@@ -171,7 +171,8 @@ class EscalationPolicy(pulumi.CustomResource):
                  steps: Optional[pulumi.Input[Sequence[pulumi.Input[Union['EscalationPolicyStepArgs', 'EscalationPolicyStepArgsDict']]]]] = None,
                  __props__=None):
         """
-        Create a EscalationPolicy resource with the given unique name, props, and options.
+        Manages an escalation policy with ordered steps.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] is_active: Whether the escalation policy is active.
@@ -186,7 +187,8 @@ class EscalationPolicy(pulumi.CustomResource):
                  args: EscalationPolicyArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a EscalationPolicy resource with the given unique name, props, and options.
+        Manages an escalation policy with ordered steps.
+
         :param str resource_name: The name of the resource.
         :param EscalationPolicyArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

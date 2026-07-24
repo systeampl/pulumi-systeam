@@ -33,7 +33,7 @@ class PlaybookArgs:
         The set of arguments for constructing a Playbook resource.
         :param pulumi.Input[str] name: The playbook name (1-200 chars).
         :param pulumi.Input[int] organization_id: The organization this playbook belongs to.
-        :param pulumi.Input[str] trigger_type: What fires the playbook: check_status_change, inbound_incident_created, inbound_status_change, manual.
+        :param pulumi.Input[str] trigger_type: What fires the playbook: check*status*change, inbound*incident*created, inbound*status*change, manual.
         :param pulumi.Input[str] description: An optional description.
         :param pulumi.Input[int] service_id: Optionally scope the playbook to a service.
         :param pulumi.Input[Sequence[pulumi.Input['PlaybookStepArgs']]] steps: Ordered steps executed when the playbook runs.
@@ -82,7 +82,7 @@ class PlaybookArgs:
     @pulumi.getter(name="triggerType")
     def trigger_type(self) -> pulumi.Input[str]:
         """
-        What fires the playbook: check_status_change, inbound_incident_created, inbound_status_change, manual.
+        What fires the playbook: check*status*change, inbound*incident*created, inbound*status*change, manual.
         """
         return pulumi.get(self, "trigger_type")
 
@@ -173,7 +173,7 @@ class _PlaybookState:
         :param pulumi.Input[Sequence[pulumi.Input['PlaybookStepArgs']]] steps: Ordered steps executed when the playbook runs.
         :param pulumi.Input[bool] suppress_default_notifications: Suppress the product's default notifications while this playbook runs.
         :param pulumi.Input[str] trigger_conditions: JSON object of extra conditions the trigger must match.
-        :param pulumi.Input[str] trigger_type: What fires the playbook: check_status_change, inbound_incident_created, inbound_status_change, manual.
+        :param pulumi.Input[str] trigger_type: What fires the playbook: check*status*change, inbound*incident*created, inbound*status*change, manual.
         """
         if description is not None:
             pulumi.set(__self__, "description", description)
@@ -294,7 +294,7 @@ class _PlaybookState:
     @pulumi.getter(name="triggerType")
     def trigger_type(self) -> Optional[pulumi.Input[str]]:
         """
-        What fires the playbook: check_status_change, inbound_incident_created, inbound_status_change, manual.
+        What fires the playbook: check*status*change, inbound*incident*created, inbound*status*change, manual.
         """
         return pulumi.get(self, "trigger_type")
 
@@ -318,7 +318,8 @@ class Playbook(pulumi.CustomResource):
                  trigger_type: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a Playbook resource with the given unique name, props, and options.
+        Manages a multi-stage incident-response playbook (spike.sh-style automation): a trigger plus an ordered list of steps, each running one of the supported actions.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] description: An optional description.
@@ -328,7 +329,7 @@ class Playbook(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[Union['PlaybookStepArgs', 'PlaybookStepArgsDict']]]] steps: Ordered steps executed when the playbook runs.
         :param pulumi.Input[bool] suppress_default_notifications: Suppress the product's default notifications while this playbook runs.
         :param pulumi.Input[str] trigger_conditions: JSON object of extra conditions the trigger must match.
-        :param pulumi.Input[str] trigger_type: What fires the playbook: check_status_change, inbound_incident_created, inbound_status_change, manual.
+        :param pulumi.Input[str] trigger_type: What fires the playbook: check*status*change, inbound*incident*created, inbound*status*change, manual.
         """
         ...
     @overload
@@ -337,7 +338,8 @@ class Playbook(pulumi.CustomResource):
                  args: PlaybookArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Playbook resource with the given unique name, props, and options.
+        Manages a multi-stage incident-response playbook (spike.sh-style automation): a trigger plus an ordered list of steps, each running one of the supported actions.
+
         :param str resource_name: The name of the resource.
         :param PlaybookArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -419,7 +421,7 @@ class Playbook(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[Union['PlaybookStepArgs', 'PlaybookStepArgsDict']]]] steps: Ordered steps executed when the playbook runs.
         :param pulumi.Input[bool] suppress_default_notifications: Suppress the product's default notifications while this playbook runs.
         :param pulumi.Input[str] trigger_conditions: JSON object of extra conditions the trigger must match.
-        :param pulumi.Input[str] trigger_type: What fires the playbook: check_status_change, inbound_incident_created, inbound_status_change, manual.
+        :param pulumi.Input[str] trigger_type: What fires the playbook: check*status*change, inbound*incident*created, inbound*status*change, manual.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -504,7 +506,7 @@ class Playbook(pulumi.CustomResource):
     @pulumi.getter(name="triggerType")
     def trigger_type(self) -> pulumi.Output[str]:
         """
-        What fires the playbook: check_status_change, inbound_incident_created, inbound_status_change, manual.
+        What fires the playbook: check*status*change, inbound*incident*created, inbound*status*change, manual.
         """
         return pulumi.get(self, "trigger_type")
 

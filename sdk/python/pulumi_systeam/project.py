@@ -169,7 +169,8 @@ class Project(pulumi.CustomResource):
                  organization_id: Optional[pulumi.Input[int]] = None,
                  __props__=None):
         """
-        Create a Project resource with the given unique name, props, and options.
+        Manages a SysTeam Healthchecks project.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] access_control_enabled: Whether access control is enabled for this project.
@@ -184,7 +185,8 @@ class Project(pulumi.CustomResource):
                  args: ProjectArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Project resource with the given unique name, props, and options.
+        Manages a SysTeam Healthchecks project.
+
         :param str resource_name: The name of the resource.
         :param ProjectArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

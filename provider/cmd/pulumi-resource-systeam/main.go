@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 
-	"github.com/pawel-cygal/pulumi-systeam/provider"
+	"github.com/systeampl/pulumi-systeam/provider"
 	pfbridge "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/pf/tfbridge"
 )
 

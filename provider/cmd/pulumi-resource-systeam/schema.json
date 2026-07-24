@@ -1,6 +1,6 @@
 {
     "name": "systeam",
-    "displayName": "SysTeam Monitoring",
+    "displayName": "Syschecks (SysTeam Monitoring)",
     "description": "A Pulumi provider for SysTeam Monitoring",
     "keywords": [
         "pulumi",
@@ -8,17 +8,17 @@
         "monitoring",
         "healthchecks"
     ],
-    "homepage": "https://checks.systeam.pl",
+    "homepage": "https://syschecks.com",
     "license": "Apache-2.0",
-    "attribution": "This Pulumi package is based on the [`systeam` Terraform Provider](https://github.com/pawel-cygal/terraform-provider-systeam).",
-    "publisher": "pawel-cygal",
+    "attribution": "This Pulumi package is based on the [`systeam` Terraform Provider](https://github.com/systeampl/terraform-provider-systeam).",
+    "publisher": "SysTeam",
     "meta": {
         "moduleFormat": "(.*)(?:/[^/]*)"
     },
     "language": {
         "nodejs": {
             "packageDescription": "A Pulumi provider for SysTeam Monitoring",
-            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/pawel-cygal/terraform-provider-systeam)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-systeam` repo](/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-systeam` repo](https://github.com/pawel-cygal/terraform-provider-systeam/issues).",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/systeampl/terraform-provider-systeam)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-systeam` repo](/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-systeam` repo](https://github.com/systeampl/terraform-provider-systeam/issues).",
             "compatibility": "tfbridge20",
             "disableUnionOutputTypes": true
         },
@@ -27,7 +27,7 @@
             "requires": {
                 "pulumi": "\u003e=3.0.0,\u003c4.0.0"
             },
-            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/pawel-cygal/terraform-provider-systeam)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-systeam` repo](/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-systeam` repo](https://github.com/pawel-cygal/terraform-provider-systeam/issues).",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/systeampl/terraform-provider-systeam)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-systeam` repo](/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-systeam` repo](https://github.com/systeampl/terraform-provider-systeam/issues).",
             "compatibility": "tfbridge20",
             "pyproject": {}
         }
@@ -116,7 +116,7 @@
             "properties": {
                 "actionType": {
                     "type": "string",
-                    "description": "The action to run. One of: add_responders, set_priority, set_severity, setup_war_room, create_jira_ticket, auto_ack, auto_resolve, update_status_page, notify_subscribers, run_escalation, outbound_webhook, create_slack_channel, add_links, title_enrichment, send_custom_notification, manual_step.\n"
+                    "description": "The action to run. One of: add*responders, set*priority, set*severity, setup*war*room, create*jira*ticket, auto*ack, auto*resolve, update*status*page, notify*subscribers, run*escalation, outbound*webhook, create*slack*channel, add*links, title*enrichment, send*custom*notification, manual_step.\n"
                 },
                 "conditions": {
                     "type": "string",
@@ -194,6 +194,7 @@
     },
     "resources": {
         "systeam:index/agentRegistrationToken:AgentRegistrationToken": {
+            "description": "Mints a one-time token to enroll a private (or geo) agent. The agent trades this token for a permanent key via `healthcheck-agent register`. Write-only and valid for one hour; changing any input mints a new token.\n",
             "properties": {
                 "expiresAt": {
                     "type": "string",
@@ -271,6 +272,7 @@
             }
         },
         "systeam:index/check:Check": {
+            "description": "Manages a health check.\n",
             "properties": {
                 "alertAfterFailures": {
                     "type": "integer",
@@ -356,7 +358,7 @@
                 },
                 "dbPassword": {
                     "type": "string",
-                    "description": "Database password (database checks). Write-only: encrypted at rest and never returned by the API, so it is not refreshed\ninto state.\n",
+                    "description": "Database password (database checks). Write-only: encrypted at rest and never returned by the API, so it is not refreshed into state.\n",
                     "secret": true
                 },
                 "dbPort": {
@@ -819,7 +821,7 @@
                 },
                 "dbPassword": {
                     "type": "string",
-                    "description": "Database password (database checks). Write-only: encrypted at rest and never returned by the API, so it is not refreshed\ninto state.\n",
+                    "description": "Database password (database checks). Write-only: encrypted at rest and never returned by the API, so it is not refreshed into state.\n",
                     "secret": true
                 },
                 "dbPort": {
@@ -1204,7 +1206,7 @@
                     },
                     "dbPassword": {
                         "type": "string",
-                        "description": "Database password (database checks). Write-only: encrypted at rest and never returned by the API, so it is not refreshed\ninto state.\n",
+                        "description": "Database password (database checks). Write-only: encrypted at rest and never returned by the API, so it is not refreshed into state.\n",
                         "secret": true
                     },
                     "dbPort": {
@@ -1501,6 +1503,7 @@
             }
         },
         "systeam:index/checkSlo:CheckSlo": {
+            "description": "Manages an SLO (Service Level Objective) for a check. One SLO per check.\n",
             "properties": {
                 "budgetWarnPct": {
                     "type": "number",
@@ -1673,6 +1676,7 @@
             }
         },
         "systeam:index/contactMethod:ContactMethod": {
+            "description": "Manages a per-user contact method (phone/email/push) used by on-call escalation. Tied to the provider token's user. Verification happens out of band (a code is sent to the target) and cannot be automated — a freshly created method starts unverified.\n",
             "properties": {
                 "enabled": {
                     "type": "boolean",
@@ -1750,6 +1754,7 @@
             }
         },
         "systeam:index/escalationPolicy:EscalationPolicy": {
+            "description": "Manages an escalation policy with ordered steps.\n",
             "properties": {
                 "isActive": {
                     "type": "boolean",
@@ -1828,6 +1833,7 @@
             }
         },
         "systeam:index/integrationKey:IntegrationKey": {
+            "description": "Manages an inbound-events integration key. External systems (Alertmanager, Grafana, Prometheus, PagerDuty-format senders) authenticate with this key to raise incidents that route to an escalation policy.\n",
             "properties": {
                 "escalationPolicyId": {
                     "type": "integer",
@@ -1855,7 +1861,7 @@
                 },
                 "token": {
                     "type": "string",
-                    "description": "The full secret routing key. Returned ONLY at creation; put it in your Alertmanager/Grafana webhook URL. It is not\nreadable afterwards, so it is preserved in state from the create.\n",
+                    "description": "The full secret routing key. Returned ONLY at creation; put it in your Alertmanager/Grafana webhook URL. It is not readable afterwards, so it is preserved in state from the create.\n",
                     "secret": true
                 },
                 "tokenPrefix": {
@@ -1929,7 +1935,7 @@
                     },
                     "token": {
                         "type": "string",
-                        "description": "The full secret routing key. Returned ONLY at creation; put it in your Alertmanager/Grafana webhook URL. It is not\nreadable afterwards, so it is preserved in state from the create.\n",
+                        "description": "The full secret routing key. Returned ONLY at creation; put it in your Alertmanager/Grafana webhook URL. It is not readable afterwards, so it is preserved in state from the create.\n",
                         "secret": true
                     },
                     "tokenPrefix": {
@@ -1941,6 +1947,7 @@
             }
         },
         "systeam:index/lifecycleWatch:LifecycleWatch": {
+            "description": "Tracks the lifecycle / end-of-life of an external resource (e.g. an AI model, the 'Technology Watch' feature) and notifies at 90/30/7-day thresholds and on new releases.\n",
             "properties": {
                 "channelIds": {
                     "type": "array",
@@ -2095,6 +2102,7 @@
             }
         },
         "systeam:index/maintenanceWindow:MaintenanceWindow": {
+            "description": "Manages a maintenance window.\n",
             "properties": {
                 "checkIds": {
                     "type": "array",
@@ -2125,7 +2133,7 @@
                 },
                 "organizationId": {
                     "type": "integer",
-                    "description": "Organization that owns the window. REQUIRED for non-superadmin callers; omit only for a superadmin platform-global\nwindow.\n"
+                    "description": "Organization that owns the window. REQUIRED for non-superadmin callers; omit only for a superadmin platform-global window.\n"
                 },
                 "projectIds": {
                     "type": "array",
@@ -2136,7 +2144,7 @@
                 },
                 "recurrencePattern": {
                     "type": "string",
-                    "description": "Recurrence as JSON when is_recurring=true, e.g.\njsonencode({type=\"weekly\",days=[0,3],time=\"02:00\",duration_minutes=120}). days: Mon=0..Sun=6.\n"
+                    "description": "Recurrence as JSON when is*recurring=true, e.g. jsonencode({type=\"weekly\",days=[0,3],time=\"02:00\",duration*minutes=120}). days: Mon=0..Sun=6.\n"
                 },
                 "startTime": {
                     "type": "string",
@@ -2189,7 +2197,7 @@
                 },
                 "organizationId": {
                     "type": "integer",
-                    "description": "Organization that owns the window. REQUIRED for non-superadmin callers; omit only for a superadmin platform-global\nwindow.\n"
+                    "description": "Organization that owns the window. REQUIRED for non-superadmin callers; omit only for a superadmin platform-global window.\n"
                 },
                 "projectIds": {
                     "type": "array",
@@ -2200,7 +2208,7 @@
                 },
                 "recurrencePattern": {
                     "type": "string",
-                    "description": "Recurrence as JSON when is_recurring=true, e.g.\njsonencode({type=\"weekly\",days=[0,3],time=\"02:00\",duration_minutes=120}). days: Mon=0..Sun=6.\n"
+                    "description": "Recurrence as JSON when is*recurring=true, e.g. jsonencode({type=\"weekly\",days=[0,3],time=\"02:00\",duration*minutes=120}). days: Mon=0..Sun=6.\n"
                 },
                 "startTime": {
                     "type": "string",
@@ -2248,7 +2256,7 @@
                     },
                     "organizationId": {
                         "type": "integer",
-                        "description": "Organization that owns the window. REQUIRED for non-superadmin callers; omit only for a superadmin platform-global\nwindow.\n"
+                        "description": "Organization that owns the window. REQUIRED for non-superadmin callers; omit only for a superadmin platform-global window.\n"
                     },
                     "projectIds": {
                         "type": "array",
@@ -2259,7 +2267,7 @@
                     },
                     "recurrencePattern": {
                         "type": "string",
-                        "description": "Recurrence as JSON when is_recurring=true, e.g.\njsonencode({type=\"weekly\",days=[0,3],time=\"02:00\",duration_minutes=120}). days: Mon=0..Sun=6.\n"
+                        "description": "Recurrence as JSON when is*recurring=true, e.g. jsonencode({type=\"weekly\",days=[0,3],time=\"02:00\",duration*minutes=120}). days: Mon=0..Sun=6.\n"
                     },
                     "startTime": {
                         "type": "string",
@@ -2274,6 +2282,7 @@
             }
         },
         "systeam:index/notificationChannel:NotificationChannel": {
+            "description": "Manages a notification channel.\n",
             "properties": {
                 "channelType": {
                     "type": "string",
@@ -2366,6 +2375,7 @@
             }
         },
         "systeam:index/oncallSchedule:OncallSchedule": {
+            "description": "Manages an on-call schedule with participants.\n",
             "properties": {
                 "isActive": {
                     "type": "boolean",
@@ -2470,6 +2480,7 @@
             }
         },
         "systeam:index/playbook:Playbook": {
+            "description": "Manages a multi-stage incident-response playbook (spike.sh-style automation): a trigger plus an ordered list of steps, each running one of the supported actions.\n",
             "properties": {
                 "description": {
                     "type": "string",
@@ -2508,7 +2519,7 @@
                 },
                 "triggerType": {
                     "type": "string",
-                    "description": "What fires the playbook: check_status_change, inbound_incident_created, inbound_status_change, manual.\n"
+                    "description": "What fires the playbook: check*status*change, inbound*incident*created, inbound*status*change, manual.\n"
                 }
             },
             "required": [
@@ -2554,7 +2565,7 @@
                 },
                 "triggerType": {
                     "type": "string",
-                    "description": "What fires the playbook: check_status_change, inbound_incident_created, inbound_status_change, manual.\n"
+                    "description": "What fires the playbook: check*status*change, inbound*incident*created, inbound*status*change, manual.\n"
                 }
             },
             "requiredInputs": [
@@ -2602,13 +2613,14 @@
                     },
                     "triggerType": {
                         "type": "string",
-                        "description": "What fires the playbook: check_status_change, inbound_incident_created, inbound_status_change, manual.\n"
+                        "description": "What fires the playbook: check*status*change, inbound*incident*created, inbound*status*change, manual.\n"
                     }
                 },
                 "type": "object"
             }
         },
         "systeam:index/project:Project": {
+            "description": "Manages a SysTeam Healthchecks project.\n",
             "properties": {
                 "accessControlEnabled": {
                     "type": "boolean",
@@ -2679,6 +2691,7 @@
             }
         },
         "systeam:index/service:Service": {
+            "description": "Manages a service: an org-scoped catalog entry that incidents and checks attach to, with an owning team, an escalation policy, and notification channels.\n",
             "properties": {
                 "description": {
                     "type": "string",
@@ -2839,6 +2852,7 @@
             }
         },
         "systeam:index/statusPage:StatusPage": {
+            "description": "Manages a public status page.\n",
             "properties": {
                 "checkIds": {
                     "type": "array",
@@ -2982,6 +2996,7 @@
             }
         },
         "systeam:index/team:Team": {
+            "description": "Manages a team: an org-scoped grouping used for ownership and routing. Projects, on-call schedules, escalation policies and integration keys can belong to a team.\n",
             "properties": {
                 "description": {
                     "type": "string",
@@ -3072,11 +3087,13 @@
     },
     "functions": {
         "systeam:index/getOrganization:getOrganization": {
+            "description": "Look up a SysTeam Healthchecks organization by slug.\n",
             "inputs": {
                 "description": "A collection of arguments for invoking getOrganization.\n",
                 "properties": {
                     "slug": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The slug of the organization.\n"
                     }
                 },
                 "type": "object",
@@ -3088,16 +3105,20 @@
                 "description": "A collection of values returned by getOrganization.\n",
                 "properties": {
                     "description": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "A description of the organization.\n"
                     },
                     "id": {
-                        "type": "integer"
+                        "type": "integer",
+                        "description": "The unique identifier of the organization.\n"
                     },
                     "name": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The name of the organization.\n"
                     },
                     "slug": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The slug of the organization.\n"
                     }
                 },
                 "type": "object",

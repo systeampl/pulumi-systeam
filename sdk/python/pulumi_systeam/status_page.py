@@ -332,7 +332,8 @@ class StatusPage(pulumi.CustomResource):
                  slug: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a StatusPage resource with the given unique name, props, and options.
+        Manages a public status page.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[int]]] check_ids: List of check IDs to display on the status page.
@@ -352,7 +353,8 @@ class StatusPage(pulumi.CustomResource):
                  args: StatusPageArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a StatusPage resource with the given unique name, props, and options.
+        Manages a public status page.
+
         :param str resource_name: The name of the resource.
         :param StatusPageArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

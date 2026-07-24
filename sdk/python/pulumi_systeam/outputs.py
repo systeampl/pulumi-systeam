@@ -208,7 +208,7 @@ class PlaybookStep(dict):
                  parallel_group: Optional[str] = None,
                  timeout_seconds: Optional[int] = None):
         """
-        :param str action_type: The action to run. One of: add_responders, set_priority, set_severity, setup_war_room, create_jira_ticket, auto_ack, auto_resolve, update_status_page, notify_subscribers, run_escalation, outbound_webhook, create_slack_channel, add_links, title_enrichment, send_custom_notification, manual_step.
+        :param str action_type: The action to run. One of: add*responders, set*priority, set*severity, setup*war*room, create*jira*ticket, auto*ack, auto*resolve, update*status*page, notify*subscribers, run*escalation, outbound*webhook, create*slack*channel, add*links, title*enrichment, send*custom*notification, manual_step.
         :param str name: Human-readable step name.
         :param int step_order: Position of this step in the run (1-based).
         :param str conditions: Optional JSON array of conditions gating this step.
@@ -235,7 +235,7 @@ class PlaybookStep(dict):
     @pulumi.getter(name="actionType")
     def action_type(self) -> str:
         """
-        The action to run. One of: add_responders, set_priority, set_severity, setup_war_room, create_jira_ticket, auto_ack, auto_resolve, update_status_page, notify_subscribers, run_escalation, outbound_webhook, create_slack_channel, add_links, title_enrichment, send_custom_notification, manual_step.
+        The action to run. One of: add*responders, set*priority, set*severity, setup*war*room, create*jira*ticket, auto*ack, auto*resolve, update*status*page, notify*subscribers, run*escalation, outbound*webhook, create*slack*channel, add*links, title*enrichment, send*custom*notification, manual_step.
         """
         return pulumi.get(self, "action_type")
 

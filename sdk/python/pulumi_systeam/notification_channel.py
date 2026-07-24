@@ -201,7 +201,8 @@ class NotificationChannel(pulumi.CustomResource):
                  organization_id: Optional[pulumi.Input[int]] = None,
                  __props__=None):
         """
-        Create a NotificationChannel resource with the given unique name, props, and options.
+        Manages a notification channel.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] channel_type: Channel type.
@@ -217,7 +218,8 @@ class NotificationChannel(pulumi.CustomResource):
                  args: NotificationChannelArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a NotificationChannel resource with the given unique name, props, and options.
+        Manages a notification channel.
+
         :param str resource_name: The name of the resource.
         :param NotificationChannelArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

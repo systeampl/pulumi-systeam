@@ -168,7 +168,8 @@ class AgentRegistrationToken(pulumi.CustomResource):
                  organization_id: Optional[pulumi.Input[int]] = None,
                  __props__=None):
         """
-        Create a AgentRegistrationToken resource with the given unique name, props, and options.
+        Mints a one-time token to enroll a private (or geo) agent. The agent trades this token for a permanent key via `healthcheck-agent register`. Write-only and valid for one hour; changing any input mints a new token.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] mode: Agent mode: 'private' (customer host) or 'geo' (superadmin-only geo probe).
@@ -182,7 +183,8 @@ class AgentRegistrationToken(pulumi.CustomResource):
                  args: AgentRegistrationTokenArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a AgentRegistrationToken resource with the given unique name, props, and options.
+        Mints a one-time token to enroll a private (or geo) agent. The agent trades this token for a permanent key via `healthcheck-agent register`. Write-only and valid for one hour; changing any input mints a new token.
+
         :param str resource_name: The name of the resource.
         :param AgentRegistrationTokenArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

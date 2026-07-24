@@ -1,11 +1,13 @@
 VERSION ?= 0.1.0
 PROVIDER := pulumi-resource-systeam
 TFGEN := pulumi-tfgen-systeam
+VERSION_PKG := github.com/systeampl/pulumi-systeam/provider/pkg/version
+LDFLAGS := -s -w -X $(VERSION_PKG).Version=$(VERSION)
 
 .PHONY: build generate_schema generate_sdk install clean
 
 build: generate_sdk
-	go build -o bin/$(PROVIDER) ./provider/cmd/pulumi-resource-systeam/
+	go build -ldflags "$(LDFLAGS)" -o bin/$(PROVIDER) ./provider/cmd/pulumi-resource-systeam/
 
 generate_schema:
 	go build -o bin/$(TFGEN) ./provider/cmd/pulumi-tfgen-systeam/

@@ -186,7 +186,8 @@ class ContactMethod(pulumi.CustomResource):
                  value: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a ContactMethod resource with the given unique name, props, and options.
+        Manages a per-user contact method (phone/email/push) used by on-call escalation. Tied to the provider token's user. Verification happens out of band (a code is sent to the target) and cannot be automated — a freshly created method starts unverified.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] enabled: Whether the method is enabled for notifications.
@@ -201,7 +202,8 @@ class ContactMethod(pulumi.CustomResource):
                  args: ContactMethodArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a ContactMethod resource with the given unique name, props, and options.
+        Manages a per-user contact method (phone/email/push) used by on-call escalation. Tied to the provider token's user. Verification happens out of band (a code is sent to the target) and cannot be automated — a freshly created method starts unverified.
+
         :param str resource_name: The name of the resource.
         :param ContactMethodArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

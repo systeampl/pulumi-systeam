@@ -43,21 +43,33 @@ class GetOrganizationResult:
     @property
     @pulumi.getter
     def description(self) -> str:
+        """
+        A description of the organization.
+        """
         return pulumi.get(self, "description")
 
     @property
     @pulumi.getter
     def id(self) -> int:
+        """
+        The unique identifier of the organization.
+        """
         return pulumi.get(self, "id")
 
     @property
     @pulumi.getter
     def name(self) -> str:
+        """
+        The name of the organization.
+        """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter
     def slug(self) -> str:
+        """
+        The slug of the organization.
+        """
         return pulumi.get(self, "slug")
 
 
@@ -76,7 +88,10 @@ class AwaitableGetOrganizationResult(GetOrganizationResult):
 def get_organization(slug: Optional[str] = None,
                      opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetOrganizationResult:
     """
-    Use this data source to access information about an existing resource.
+    Look up a SysTeam Healthchecks organization by slug.
+
+
+    :param str slug: The slug of the organization.
     """
     __args__ = dict()
     __args__['slug'] = slug
@@ -91,7 +106,10 @@ def get_organization(slug: Optional[str] = None,
 def get_organization_output(slug: Optional[pulumi.Input[str]] = None,
                             opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetOrganizationResult]:
     """
-    Use this data source to access information about an existing resource.
+    Look up a SysTeam Healthchecks organization by slug.
+
+
+    :param str slug: The slug of the organization.
     """
     __args__ = dict()
     __args__['slug'] = slug

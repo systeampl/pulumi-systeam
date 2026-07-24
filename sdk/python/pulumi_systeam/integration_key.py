@@ -120,8 +120,7 @@ class _IntegrationKeyState:
         :param pulumi.Input[bool] is_active: Whether the key is active (revoked keys are inactive).
         :param pulumi.Input[str] name: A human-readable name for the key.
         :param pulumi.Input[int] organization_id: The ID of the organization this key belongs to.
-        :param pulumi.Input[str] token: The full secret routing key. Returned ONLY at creation; put it in your Alertmanager/Grafana webhook URL. It is not
-               readable afterwards, so it is preserved in state from the create.
+        :param pulumi.Input[str] token: The full secret routing key. Returned ONLY at creation; put it in your Alertmanager/Grafana webhook URL. It is not readable afterwards, so it is preserved in state from the create.
         :param pulumi.Input[str] token_prefix: The non-secret prefix of the key, shown in the UI to identify it.
         """
         if escalation_policy_id is not None:
@@ -217,8 +216,7 @@ class _IntegrationKeyState:
     @pulumi.getter
     def token(self) -> Optional[pulumi.Input[str]]:
         """
-        The full secret routing key. Returned ONLY at creation; put it in your Alertmanager/Grafana webhook URL. It is not
-        readable afterwards, so it is preserved in state from the create.
+        The full secret routing key. Returned ONLY at creation; put it in your Alertmanager/Grafana webhook URL. It is not readable afterwards, so it is preserved in state from the create.
         """
         return pulumi.get(self, "token")
 
@@ -251,7 +249,8 @@ class IntegrationKey(pulumi.CustomResource):
                  organization_id: Optional[pulumi.Input[int]] = None,
                  __props__=None):
         """
-        Create a IntegrationKey resource with the given unique name, props, and options.
+        Manages an inbound-events integration key. External systems (Alertmanager, Grafana, Prometheus, PagerDuty-format senders) authenticate with this key to raise incidents that route to an escalation policy.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[int] escalation_policy_id: The escalation policy that inbound events on this key are routed to.
@@ -267,7 +266,8 @@ class IntegrationKey(pulumi.CustomResource):
                  args: IntegrationKeyArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a IntegrationKey resource with the given unique name, props, and options.
+        Manages an inbound-events integration key. External systems (Alertmanager, Grafana, Prometheus, PagerDuty-format senders) authenticate with this key to raise incidents that route to an escalation policy.
+
         :param str resource_name: The name of the resource.
         :param IntegrationKeyArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -344,8 +344,7 @@ class IntegrationKey(pulumi.CustomResource):
         :param pulumi.Input[bool] is_active: Whether the key is active (revoked keys are inactive).
         :param pulumi.Input[str] name: A human-readable name for the key.
         :param pulumi.Input[int] organization_id: The ID of the organization this key belongs to.
-        :param pulumi.Input[str] token: The full secret routing key. Returned ONLY at creation; put it in your Alertmanager/Grafana webhook URL. It is not
-               readable afterwards, so it is preserved in state from the create.
+        :param pulumi.Input[str] token: The full secret routing key. Returned ONLY at creation; put it in your Alertmanager/Grafana webhook URL. It is not readable afterwards, so it is preserved in state from the create.
         :param pulumi.Input[str] token_prefix: The non-secret prefix of the key, shown in the UI to identify it.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -414,8 +413,7 @@ class IntegrationKey(pulumi.CustomResource):
     @pulumi.getter
     def token(self) -> pulumi.Output[str]:
         """
-        The full secret routing key. Returned ONLY at creation; put it in your Alertmanager/Grafana webhook URL. It is not
-        readable afterwards, so it is preserved in state from the create.
+        The full secret routing key. Returned ONLY at creation; put it in your Alertmanager/Grafana webhook URL. It is not readable afterwards, so it is preserved in state from the create.
         """
         return pulumi.get(self, "token")
 

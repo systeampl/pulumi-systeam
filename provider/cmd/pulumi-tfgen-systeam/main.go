@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/pawel-cygal/pulumi-systeam/provider"
+	"github.com/systeampl/pulumi-systeam/provider"
 	"github.com/pulumi/pulumi-terraform-bridge/pf/tfgen"
 )
 

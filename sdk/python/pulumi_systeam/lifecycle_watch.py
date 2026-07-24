@@ -367,7 +367,8 @@ class LifecycleWatch(pulumi.CustomResource):
                  vendor: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a LifecycleWatch resource with the given unique name, props, and options.
+        Tracks the lifecycle / end-of-life of an external resource (e.g. an AI model, the 'Technology Watch' feature) and notifies at 90/30/7-day thresholds and on new releases.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[int]]] channel_ids: Notification channels to alert. Write-only: the API does not return these on read.
@@ -388,7 +389,8 @@ class LifecycleWatch(pulumi.CustomResource):
                  args: LifecycleWatchArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a LifecycleWatch resource with the given unique name, props, and options.
+        Tracks the lifecycle / end-of-life of an external resource (e.g. an AI model, the 'Technology Watch' feature) and notifies at 90/30/7-day thresholds and on new releases.
+
         :param str resource_name: The name of the resource.
         :param LifecycleWatchArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

@@ -1,11 +1,11 @@
-module github.com/pawel-cygal/pulumi-systeam
+module github.com/systeampl/pulumi-systeam
 
 go 1.25.8
 
 require (
-	github.com/pawel-cygal/terraform-provider-systeam v0.0.0
 	github.com/pulumi/pulumi-terraform-bridge/pf v0.47.0
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.96.0
+	github.com/systeampl/terraform-provider-systeam v0.1.3
 )
 
 require (
@@ -184,5 +184,3 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	lukechampine.com/frand v1.4.2 // indirect
 )
-
-replace github.com/pawel-cygal/terraform-provider-systeam => ../terraform-provider

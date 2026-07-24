@@ -133,8 +133,7 @@ class CheckArgs:
         :param pulumi.Input[str] db_expected_result: Expected query result for validation (database checks).
         :param pulumi.Input[str] db_host: Database host (database checks).
         :param pulumi.Input[str] db_name: Database name (database checks).
-        :param pulumi.Input[str] db_password: Database password (database checks). Write-only: encrypted at rest and never returned by the API, so it is not refreshed
-               into state.
+        :param pulumi.Input[str] db_password: Database password (database checks). Write-only: encrypted at rest and never returned by the API, so it is not refreshed into state.
         :param pulumi.Input[int] db_port: Database port (database checks).
         :param pulumi.Input[str] db_query: Query to execute (database checks).
         :param pulumi.Input[bool] db_ssl_enabled: Use SSL/TLS for the database connection (database checks).
@@ -649,8 +648,7 @@ class CheckArgs:
     @pulumi.getter(name="dbPassword")
     def db_password(self) -> Optional[pulumi.Input[str]]:
         """
-        Database password (database checks). Write-only: encrypted at rest and never returned by the API, so it is not refreshed
-        into state.
+        Database password (database checks). Write-only: encrypted at rest and never returned by the API, so it is not refreshed into state.
         """
         return pulumi.get(self, "db_password")
 
@@ -1577,8 +1575,7 @@ class _CheckState:
         :param pulumi.Input[str] db_expected_result: Expected query result for validation (database checks).
         :param pulumi.Input[str] db_host: Database host (database checks).
         :param pulumi.Input[str] db_name: Database name (database checks).
-        :param pulumi.Input[str] db_password: Database password (database checks). Write-only: encrypted at rest and never returned by the API, so it is not refreshed
-               into state.
+        :param pulumi.Input[str] db_password: Database password (database checks). Write-only: encrypted at rest and never returned by the API, so it is not refreshed into state.
         :param pulumi.Input[int] db_port: Database port (database checks).
         :param pulumi.Input[str] db_query: Query to execute (database checks).
         :param pulumi.Input[bool] db_ssl_enabled: Use SSL/TLS for the database connection (database checks).
@@ -2063,8 +2060,7 @@ class _CheckState:
     @pulumi.getter(name="dbPassword")
     def db_password(self) -> Optional[pulumi.Input[str]]:
         """
-        Database password (database checks). Write-only: encrypted at rest and never returned by the API, so it is not refreshed
-        into state.
+        Database password (database checks). Write-only: encrypted at rest and never returned by the API, so it is not refreshed into state.
         """
         return pulumi.get(self, "db_password")
 
@@ -3010,7 +3006,8 @@ class Check(pulumi.CustomResource):
                  url: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a Check resource with the given unique name, props, and options.
+        Manages a health check.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[int] alert_after_failures: Number of consecutive failures before alerting.
@@ -3032,8 +3029,7 @@ class Check(pulumi.CustomResource):
         :param pulumi.Input[str] db_expected_result: Expected query result for validation (database checks).
         :param pulumi.Input[str] db_host: Database host (database checks).
         :param pulumi.Input[str] db_name: Database name (database checks).
-        :param pulumi.Input[str] db_password: Database password (database checks). Write-only: encrypted at rest and never returned by the API, so it is not refreshed
-               into state.
+        :param pulumi.Input[str] db_password: Database password (database checks). Write-only: encrypted at rest and never returned by the API, so it is not refreshed into state.
         :param pulumi.Input[int] db_port: Database port (database checks).
         :param pulumi.Input[str] db_query: Query to execute (database checks).
         :param pulumi.Input[bool] db_ssl_enabled: Use SSL/TLS for the database connection (database checks).
@@ -3112,7 +3108,8 @@ class Check(pulumi.CustomResource):
                  args: CheckArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Check resource with the given unique name, props, and options.
+        Manages a health check.
+
         :param str resource_name: The name of the resource.
         :param CheckArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -3451,8 +3448,7 @@ class Check(pulumi.CustomResource):
         :param pulumi.Input[str] db_expected_result: Expected query result for validation (database checks).
         :param pulumi.Input[str] db_host: Database host (database checks).
         :param pulumi.Input[str] db_name: Database name (database checks).
-        :param pulumi.Input[str] db_password: Database password (database checks). Write-only: encrypted at rest and never returned by the API, so it is not refreshed
-               into state.
+        :param pulumi.Input[str] db_password: Database password (database checks). Write-only: encrypted at rest and never returned by the API, so it is not refreshed into state.
         :param pulumi.Input[int] db_port: Database port (database checks).
         :param pulumi.Input[str] db_query: Query to execute (database checks).
         :param pulumi.Input[bool] db_ssl_enabled: Use SSL/TLS for the database connection (database checks).
@@ -3776,8 +3772,7 @@ class Check(pulumi.CustomResource):
     @pulumi.getter(name="dbPassword")
     def db_password(self) -> pulumi.Output[Optional[str]]:
         """
-        Database password (database checks). Write-only: encrypted at rest and never returned by the API, so it is not refreshed
-        into state.
+        Database password (database checks). Write-only: encrypted at rest and never returned by the API, so it is not refreshed into state.
         """
         return pulumi.get(self, "db_password")
 

@@ -366,7 +366,8 @@ class Service(pulumi.CustomResource):
                  tier: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a Service resource with the given unique name, props, and options.
+        Manages a service: an org-scoped catalog entry that incidents and checks attach to, with an owning team, an escalation policy, and notification channels.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] description: An optional description.
@@ -386,7 +387,8 @@ class Service(pulumi.CustomResource):
                  args: ServiceArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Service resource with the given unique name, props, and options.
+        Manages a service: an org-scoped catalog entry that incidents and checks attach to, with an owning team, an escalation policy, and notification channels.
+
         :param str resource_name: The name of the resource.
         :param ServiceArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

@@ -237,7 +237,8 @@ class OncallSchedule(pulumi.CustomResource):
                  timezone: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a OncallSchedule resource with the given unique name, props, and options.
+        Manages an on-call schedule with participants.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] is_active: Whether the on-call schedule is active.
@@ -254,7 +255,8 @@ class OncallSchedule(pulumi.CustomResource):
                  args: OncallScheduleArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a OncallSchedule resource with the given unique name, props, and options.
+        Manages an on-call schedule with participants.
+
         :param str resource_name: The name of the resource.
         :param OncallScheduleArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

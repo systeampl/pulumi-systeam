@@ -1,0 +1,52 @@
+# GoReleaser config for the Syschecks (SysTeam) Pulumi provider.
+# Builds the `pulumi-resource-systeam` plugin binaries and attaches them to the
+# GitHub Release. Pulumi resolves the plugin from these assets (GitHubOrg =
+# systeampl in provider/resources.go), and the language SDKs are published
+# separately (see .github/workflows/release.yml).
+version: 2
+
+project_name: pulumi-systeam
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: pulumi-resource-systeam
+    main: ./provider/cmd/pulumi-resource-systeam
+    binary: pulumi-resource-systeam
+    env:
+      - CGO_ENABLED=0
+    mod_timestamp: "{{ .CommitTimestamp }}"
+    flags:
+      - -trimpath
+    ldflags:
+      - -s -w -X github.com/systeampl/pulumi-systeam/provider/pkg/version.Version={{ .Version }}
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+
+archives:
+  # Pulumi plugin naming convention: pulumi-resource-<name>-v<ver>-<os>-<arch>.tar.gz
+  - id: pulumi-resource-systeam
+    name_template: "pulumi-resource-systeam-v{{ .Version }}-{{ .Os }}-{{ .Arch }}"
+    formats:
+      - tar.gz
+
+checksum:
+  name_template: "pulumi-systeam-{{ .Version }}-checksums.txt"
+  algorithm: sha256
+
+snapshot:
+  version_template: "{{ .Version }}-SNAPSHOT"
+
+changelog:
+  disable: true
+
+release:
+  # Attach the plugin binaries + checksums to the GitHub Release for tag v*.
+  prerelease: auto

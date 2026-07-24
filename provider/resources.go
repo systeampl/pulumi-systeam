@@ -3,7 +3,8 @@ package provider
 import (
 	_ "embed"
 
-	"github.com/pawel-cygal/terraform-provider-systeam/shim"
+	"github.com/systeampl/pulumi-systeam/provider/pkg/version"
+	"github.com/systeampl/terraform-provider-systeam/shim"
 	pfbridge "github.com/pulumi/pulumi-terraform-bridge/pf/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge/tokens"
@@ -18,20 +19,21 @@ const (
 var bridgeMetadata []byte
 
 // All resources use the TF "id" (computed) as the Pulumi resource ID.
-var idField = tfbridge.DelegateIDField("id", "systeam", "https://github.com/pawel-cygal/healtchecks")
+var idField = tfbridge.DelegateIDField("id", "systeam", "https://github.com/systeampl/terraform-provider-systeam")
 
 func Provider() tfbridge.ProviderInfo {
 	prov := tfbridge.ProviderInfo{
 		P:            pfbridge.ShimProvider(shim.New()),
 		MetadataInfo: tfbridge.NewProviderMetadata(bridgeMetadata),
 		Name:         "systeam",
-		DisplayName:  "SysTeam Monitoring",
-		Publisher:    "pawel-cygal",
+		Version:      version.Version,
+		DisplayName:  "Syschecks (SysTeam Monitoring)",
+		Publisher:    "SysTeam",
 		Description:  "A Pulumi provider for SysTeam Monitoring",
 		Keywords:     []string{"pulumi", "systeam", "monitoring", "healthchecks"},
 		License:      "Apache-2.0",
-		Homepage:     "https://checks.systeam.pl",
-		GitHubOrg:    "pawel-cygal",
+		Homepage:     "https://syschecks.com",
+		GitHubOrg:    "systeampl",
 		Config:       map[string]*tfbridge.SchemaInfo{},
 		Resources: map[string]*tfbridge.ResourceInfo{
 			"systeam_project":                  {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Project"), ComputeID: idField},

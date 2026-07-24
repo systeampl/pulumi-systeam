@@ -434,7 +434,8 @@ class CheckSlo(pulumi.CustomResource):
                  window_days: Optional[pulumi.Input[int]] = None,
                  __props__=None):
         """
-        Create a CheckSlo resource with the given unique name, props, and options.
+        Manages an SLO (Service Level Objective) for a check. One SLO per check.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[float] budget_warn_pct: Error budget warning threshold percentage.
@@ -457,7 +458,8 @@ class CheckSlo(pulumi.CustomResource):
                  args: CheckSloArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a CheckSlo resource with the given unique name, props, and options.
+        Manages an SLO (Service Level Objective) for a check. One SLO per check.
+
         :param str resource_name: The name of the resource.
         :param CheckSloArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

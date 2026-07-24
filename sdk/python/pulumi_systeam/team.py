@@ -201,7 +201,8 @@ class Team(pulumi.CustomResource):
                  slug: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a Team resource with the given unique name, props, and options.
+        Manages a team: an org-scoped grouping used for ownership and routing. Projects, on-call schedules, escalation policies and integration keys can belong to a team.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] description: An optional description of the team.
@@ -216,7 +217,8 @@ class Team(pulumi.CustomResource):
                  args: TeamArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Team resource with the given unique name, props, and options.
+        Manages a team: an org-scoped grouping used for ownership and routing. Projects, on-call schedules, escalation policies and integration keys can belong to a team.
+
         :param str resource_name: The name of the resource.
         :param TeamArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
