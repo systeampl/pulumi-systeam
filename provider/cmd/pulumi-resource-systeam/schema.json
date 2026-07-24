@@ -1,0 +1,3113 @@
+{
+    "name": "systeam",
+    "displayName": "SysTeam Monitoring",
+    "description": "A Pulumi provider for SysTeam Monitoring",
+    "keywords": [
+        "pulumi",
+        "systeam",
+        "monitoring",
+        "healthchecks"
+    ],
+    "homepage": "https://checks.systeam.pl",
+    "license": "Apache-2.0",
+    "attribution": "This Pulumi package is based on the [`systeam` Terraform Provider](https://github.com/pawel-cygal/terraform-provider-systeam).",
+    "publisher": "pawel-cygal",
+    "meta": {
+        "moduleFormat": "(.*)(?:/[^/]*)"
+    },
+    "language": {
+        "nodejs": {
+            "packageDescription": "A Pulumi provider for SysTeam Monitoring",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/pawel-cygal/terraform-provider-systeam)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-systeam` repo](/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-systeam` repo](https://github.com/pawel-cygal/terraform-provider-systeam/issues).",
+            "compatibility": "tfbridge20",
+            "disableUnionOutputTypes": true
+        },
+        "python": {
+            "packageName": "pulumi_systeam",
+            "requires": {
+                "pulumi": "\u003e=3.0.0,\u003c4.0.0"
+            },
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/pawel-cygal/terraform-provider-systeam)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-systeam` repo](/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-systeam` repo](https://github.com/pawel-cygal/terraform-provider-systeam/issues).",
+            "compatibility": "tfbridge20",
+            "pyproject": {}
+        }
+    },
+    "config": {
+        "variables": {
+            "apiToken": {
+                "type": "string",
+                "description": "PAT token for API authentication. Can also be set via SYSTEAM_API_TOKEN environment variable.\n",
+                "secret": true
+            },
+            "apiUrl": {
+                "type": "string",
+                "description": "Base URL of the SysTeam Healthchecks API. Can also be set via SYSTEAM_API_URL environment variable.\n"
+            }
+        }
+    },
+    "types": {
+        "systeam:index/EscalationPolicyStep:EscalationPolicyStep": {
+            "properties": {
+                "delayMinutes": {
+                    "type": "integer",
+                    "description": "Delay in minutes before escalating to this step.\n"
+                },
+                "stepOrder": {
+                    "type": "integer",
+                    "description": "Order of this step in the escalation chain (1-based).\n"
+                },
+                "targetChannelId": {
+                    "type": "integer",
+                    "description": "ID of the target notification channel (when target_type is 'channel').\n"
+                },
+                "targetScheduleId": {
+                    "type": "integer",
+                    "description": "ID of the target on-call schedule (when target_type is 'schedule').\n"
+                },
+                "targetType": {
+                    "type": "string",
+                    "description": "Type of escalation target: user, schedule, or channel.\n"
+                },
+                "targetUserId": {
+                    "type": "integer",
+                    "description": "ID of the target user (when target_type is 'user').\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "stepOrder",
+                "targetType"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "delayMinutes",
+                        "stepOrder",
+                        "targetType"
+                    ]
+                }
+            }
+        },
+        "systeam:index/OncallScheduleParticipant:OncallScheduleParticipant": {
+            "properties": {
+                "position": {
+                    "type": "integer",
+                    "description": "Position in the rotation order.\n"
+                },
+                "userId": {
+                    "type": "integer",
+                    "description": "ID of the participant user.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "userId"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "position",
+                        "userId"
+                    ]
+                }
+            }
+        },
+        "systeam:index/PlaybookStep:PlaybookStep": {
+            "properties": {
+                "actionType": {
+                    "type": "string",
+                    "description": "The action to run. One of: add_responders, set_priority, set_severity, setup_war_room, create_jira_ticket, auto_ack, auto_resolve, update_status_page, notify_subscribers, run_escalation, outbound_webhook, create_slack_channel, add_links, title_enrichment, send_custom_notification, manual_step.\n"
+                },
+                "conditions": {
+                    "type": "string",
+                    "description": "Optional JSON array of conditions gating this step.\n"
+                },
+                "config": {
+                    "type": "string",
+                    "description": "Action-specific configuration as a JSON object.\n"
+                },
+                "isManual": {
+                    "type": "boolean",
+                    "description": "Whether the step waits for manual completion.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Human-readable step name.\n"
+                },
+                "parallelGroup": {
+                    "type": "string",
+                    "description": "Steps sharing a parallel_group run concurrently.\n"
+                },
+                "stepOrder": {
+                    "type": "integer",
+                    "description": "Position of this step in the run (1-based).\n"
+                },
+                "timeoutSeconds": {
+                    "type": "integer",
+                    "description": "Step timeout in seconds (1-120).\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "actionType",
+                "name",
+                "stepOrder"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "actionType",
+                        "config",
+                        "isManual",
+                        "name",
+                        "stepOrder",
+                        "timeoutSeconds"
+                    ]
+                }
+            }
+        }
+    },
+    "provider": {
+        "description": "The provider type for the systeam package. By default, resources use package-wide configuration\nsettings, however an explicit `Provider` instance may be created and passed during resource\nconstruction to achieve fine-grained programmatic control over provider settings. See the\n[documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.\n",
+        "properties": {
+            "apiToken": {
+                "type": "string",
+                "description": "PAT token for API authentication. Can also be set via SYSTEAM_API_TOKEN environment variable.\n",
+                "secret": true
+            },
+            "apiUrl": {
+                "type": "string",
+                "description": "Base URL of the SysTeam Healthchecks API. Can also be set via SYSTEAM_API_URL environment variable.\n"
+            }
+        },
+        "inputProperties": {
+            "apiToken": {
+                "type": "string",
+                "description": "PAT token for API authentication. Can also be set via SYSTEAM_API_TOKEN environment variable.\n",
+                "secret": true
+            },
+            "apiUrl": {
+                "type": "string",
+                "description": "Base URL of the SysTeam Healthchecks API. Can also be set via SYSTEAM_API_URL environment variable.\n"
+            }
+        }
+    },
+    "resources": {
+        "systeam:index/agentRegistrationToken:AgentRegistrationToken": {
+            "properties": {
+                "expiresAt": {
+                    "type": "string",
+                    "description": "RFC3339 expiry (one hour after creation).\n"
+                },
+                "mode": {
+                    "type": "string",
+                    "description": "Agent mode: 'private' (customer host) or 'geo' (superadmin-only geo probe).\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name for the agent that will be created when this token is used.\n"
+                },
+                "organizationId": {
+                    "type": "integer",
+                    "description": "The organization the enrolled agent will belong to.\n"
+                },
+                "token": {
+                    "type": "string",
+                    "description": "The one-time enrollment token. Pass to `healthcheck-agent register -token`.\n",
+                    "secret": true
+                }
+            },
+            "required": [
+                "expiresAt",
+                "mode",
+                "name",
+                "organizationId",
+                "token"
+            ],
+            "inputProperties": {
+                "mode": {
+                    "type": "string",
+                    "description": "Agent mode: 'private' (customer host) or 'geo' (superadmin-only geo probe).\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name for the agent that will be created when this token is used.\n"
+                },
+                "organizationId": {
+                    "type": "integer",
+                    "description": "The organization the enrolled agent will belong to.\n"
+                }
+            },
+            "requiredInputs": [
+                "name",
+                "organizationId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering AgentRegistrationToken resources.\n",
+                "properties": {
+                    "expiresAt": {
+                        "type": "string",
+                        "description": "RFC3339 expiry (one hour after creation).\n"
+                    },
+                    "mode": {
+                        "type": "string",
+                        "description": "Agent mode: 'private' (customer host) or 'geo' (superadmin-only geo probe).\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name for the agent that will be created when this token is used.\n"
+                    },
+                    "organizationId": {
+                        "type": "integer",
+                        "description": "The organization the enrolled agent will belong to.\n"
+                    },
+                    "token": {
+                        "type": "string",
+                        "description": "The one-time enrollment token. Pass to `healthcheck-agent register -token`.\n",
+                        "secret": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "systeam:index/check:Check": {
+            "properties": {
+                "alertAfterFailures": {
+                    "type": "integer",
+                    "description": "Number of consecutive failures before alerting.\n"
+                },
+                "apiScenarioSecrets": {
+                    "type": "string",
+                    "description": "Secrets for api_scenario steps as a JSON object. Write-only: encrypted server-side, never read back.\n",
+                    "secret": true
+                },
+                "apiScenarioSteps": {
+                    "type": "string",
+                    "description": "Multi-step API scenario definition as JSON (api_scenario checks).\n"
+                },
+                "assignedAgentId": {
+                    "type": "integer",
+                    "description": "ID of the private agent assigned to this check.\n"
+                },
+                "assignedAgentIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "description": "IDs of agents assigned to this check (multi/geo monitoring).\n"
+                },
+                "authBearerToken": {
+                    "type": "string",
+                    "description": "HTTP bearer token. Write-only: encrypted server-side, never read back.\n",
+                    "secret": true
+                },
+                "authMethod": {
+                    "type": "string",
+                    "description": "Authentication method (uptime checks). Server default: NONE.\n"
+                },
+                "authPassword": {
+                    "type": "string",
+                    "description": "HTTP basic-auth password. Write-only: encrypted server-side, never read back.\n",
+                    "secret": true
+                },
+                "authUsername": {
+                    "type": "string",
+                    "description": "HTTP basic-auth username.\n"
+                },
+                "checkSourceCritical": {
+                    "type": "string",
+                    "description": "Per-source criticality config as JSON.\n"
+                },
+                "contentMatchCaseSensitive": {
+                    "type": "boolean",
+                    "description": "Case-sensitive content match.\n"
+                },
+                "contentMatchEnabled": {
+                    "type": "boolean",
+                    "description": "Enable response content matching.\n"
+                },
+                "contentMatchText": {
+                    "type": "string",
+                    "description": "Text or regex to match in the response.\n"
+                },
+                "contentMatchType": {
+                    "type": "string",
+                    "description": "contains, not_contains, regex.\n"
+                },
+                "cronExpression": {
+                    "type": "string",
+                    "description": "Cron expression (heartbeat checks).\n"
+                },
+                "cronTimezone": {
+                    "type": "string",
+                    "description": "Cron timezone (heartbeat checks). Server default: UTC.\n"
+                },
+                "dbExpectedResult": {
+                    "type": "string",
+                    "description": "Expected query result for validation (database checks).\n"
+                },
+                "dbHost": {
+                    "type": "string",
+                    "description": "Database host (database checks).\n"
+                },
+                "dbName": {
+                    "type": "string",
+                    "description": "Database name (database checks).\n"
+                },
+                "dbPassword": {
+                    "type": "string",
+                    "description": "Database password (database checks). Write-only: encrypted at rest and never returned by the API, so it is not refreshed\ninto state.\n",
+                    "secret": true
+                },
+                "dbPort": {
+                    "type": "integer",
+                    "description": "Database port (database checks).\n"
+                },
+                "dbQuery": {
+                    "type": "string",
+                    "description": "Query to execute (database checks).\n"
+                },
+                "dbSslEnabled": {
+                    "type": "boolean",
+                    "description": "Use SSL/TLS for the database connection (database checks).\n"
+                },
+                "dbType": {
+                    "type": "string",
+                    "description": "Database engine (database checks): postgresql, mysql, mongodb, redis.\n"
+                },
+                "dbUsername": {
+                    "type": "string",
+                    "description": "Database username (database checks).\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Check description.\n"
+                },
+                "dnsDkimSelector": {
+                    "type": "string",
+                    "description": "DKIM selector to check.\n"
+                },
+                "dnsExpectedIps": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Expected IPs for DNS-hijacking detection (dns checks).\n"
+                },
+                "dnsExpectedValue": {
+                    "type": "string",
+                    "description": "Expected DNS record value (dns checks).\n"
+                },
+                "dnsHijackAlertChannelIds": {
+                    "type": "string",
+                    "description": "Channel IDs for hijack alerts.\n"
+                },
+                "dnsHijackAlertEnabled": {
+                    "type": "boolean",
+                    "description": "Enable DNS-hijacking alerts.\n"
+                },
+                "dnsMultiRecordEnabled": {
+                    "type": "boolean",
+                    "description": "Enable multi-record DNS monitoring.\n"
+                },
+                "dnsRecordType": {
+                    "type": "string",
+                    "description": "DNS record type to query (dns checks). Server default: A.\n"
+                },
+                "dnsRecordsConfig": {
+                    "type": "string",
+                    "description": "Per-record config for multi-record DNS monitoring as JSON.\n"
+                },
+                "dnsServer": {
+                    "type": "string",
+                    "description": "DNS server to query (dns checks).\n"
+                },
+                "dnsSoaAlertOnChange": {
+                    "type": "boolean",
+                    "description": "Alert when the SOA serial changes.\n"
+                },
+                "dnsTxtMonitoringEnabled": {
+                    "type": "boolean",
+                    "description": "Enable TXT (SPF/DKIM/DMARC) monitoring.\n"
+                },
+                "escalationPolicyId": {
+                    "type": "integer",
+                    "description": "ID of the escalation policy.\n"
+                },
+                "expectedStatusCodes": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "description": "Accepted HTTP status codes (uptime checks). Defaults to [200] server-side.\n"
+                },
+                "ftpPassive": {
+                    "type": "boolean",
+                    "description": "Use passive mode.\n"
+                },
+                "ftpPassword": {
+                    "type": "string",
+                    "description": "FTP password. Write-only: encrypted server-side, never read back.\n",
+                    "secret": true
+                },
+                "ftpPath": {
+                    "type": "string",
+                    "description": "Path to list/verify.\n"
+                },
+                "ftpProtocol": {
+                    "type": "string",
+                    "description": "FTP, FTPS or SFTP.\n"
+                },
+                "ftpUsername": {
+                    "type": "string",
+                    "description": "FTP username (empty for anonymous).\n"
+                },
+                "geoMonitoringEnabled": {
+                    "type": "boolean",
+                    "description": "Enable geo-distributed monitoring.\n"
+                },
+                "gracePeriod": {
+                    "type": "integer",
+                    "description": "Grace period in seconds before marking as down.\n"
+                },
+                "host": {
+                    "type": "string",
+                    "description": "Host to check (icmp, tcp, udp, dns, ftp checks).\n"
+                },
+                "httpBody": {
+                    "type": "string",
+                    "description": "Request body (POST/PUT/PATCH).\n"
+                },
+                "httpBodyType": {
+                    "type": "string",
+                    "description": "Request body type: none, json, form, raw.\n"
+                },
+                "httpFollowRedirects": {
+                    "type": "boolean",
+                    "description": "Follow HTTP redirects.\n"
+                },
+                "httpFormCheckAfterLoginUrl": {
+                    "type": "string",
+                    "description": "URL to check after logging in.\n"
+                },
+                "httpFormLoginData": {
+                    "type": "string",
+                    "description": "Form fields for HTTP form login as a JSON object, e.g. jsonencode({username=\"u\",password=\"p\"}).\n",
+                    "secret": true
+                },
+                "httpFormLoginEnabled": {
+                    "type": "boolean",
+                    "description": "Authenticate via an HTML form before checking.\n"
+                },
+                "httpFormLoginSuccessText": {
+                    "type": "string",
+                    "description": "Text confirming successful login.\n"
+                },
+                "httpFormLoginUrl": {
+                    "type": "string",
+                    "description": "URL to POST the login form to.\n"
+                },
+                "httpHeaders": {
+                    "type": "string",
+                    "description": "Custom HTTP request headers as a JSON object, e.g. jsonencode({\"X-Api-Key\"=\"...\"}).\n",
+                    "secret": true
+                },
+                "httpMethod": {
+                    "type": "string",
+                    "description": "HTTP method (uptime checks). Server default: GET.\n"
+                },
+                "interval": {
+                    "type": "integer",
+                    "description": "Check interval in seconds.\n"
+                },
+                "isActive": {
+                    "type": "boolean",
+                    "description": "Whether the check is active.\n"
+                },
+                "mailBlacklistServers": {
+                    "type": "string",
+                    "description": "Comma-separated RBL servers.\n"
+                },
+                "mailCheckBlacklist": {
+                    "type": "boolean",
+                    "description": "Check RBL blacklists.\n"
+                },
+                "mailCheckDkim": {
+                    "type": "boolean",
+                    "description": "Check DKIM.\n"
+                },
+                "mailCheckDmarc": {
+                    "type": "boolean",
+                    "description": "Check DMARC.\n"
+                },
+                "mailCheckPtr": {
+                    "type": "boolean",
+                    "description": "Check reverse DNS (PTR).\n"
+                },
+                "mailCheckSpf": {
+                    "type": "boolean",
+                    "description": "Check SPF record.\n"
+                },
+                "mailDkimSelectors": {
+                    "type": "string",
+                    "description": "Comma-separated DKIM selectors.\n"
+                },
+                "mailDomain": {
+                    "type": "string",
+                    "description": "Mail domain to check (mail checks).\n"
+                },
+                "mailImapEnabled": {
+                    "type": "boolean",
+                    "description": "Check IMAP.\n"
+                },
+                "mailImapPort": {
+                    "type": "integer",
+                    "description": "IMAP port (143/993).\n"
+                },
+                "mailImapSsl": {
+                    "type": "boolean",
+                    "description": "Use IMAP SSL.\n"
+                },
+                "mailPop3Enabled": {
+                    "type": "boolean",
+                    "description": "Check POP3.\n"
+                },
+                "mailPop3Port": {
+                    "type": "integer",
+                    "description": "POP3 port (110/995).\n"
+                },
+                "mailPop3Ssl": {
+                    "type": "boolean",
+                    "description": "Use POP3 SSL.\n"
+                },
+                "mailSmtpEnabled": {
+                    "type": "boolean",
+                    "description": "Check SMTP.\n"
+                },
+                "mailSmtpOpenRelay": {
+                    "type": "boolean",
+                    "description": "Check for an open relay.\n"
+                },
+                "mailSmtpPort": {
+                    "type": "integer",
+                    "description": "SMTP port (25/465/587).\n"
+                },
+                "mailSmtpStarttls": {
+                    "type": "boolean",
+                    "description": "Check STARTTLS support.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Check name.\n"
+                },
+                "oidcConfig": {
+                    "type": "string",
+                    "description": "OIDC identity-provider check configuration as JSON (oidc checks).\n"
+                },
+                "pingCount": {
+                    "type": "integer",
+                    "description": "Number of ICMP pings to send.\n"
+                },
+                "port": {
+                    "type": "integer",
+                    "description": "Port number (tcp, udp, ftp checks).\n"
+                },
+                "projectId": {
+                    "type": "integer",
+                    "description": "Project ID that owns this check.\n"
+                },
+                "responseAssertions": {
+                    "type": "string",
+                    "description": "Response assertions as a JSON array (http/uptime checks).\n"
+                },
+                "runbookUrl": {
+                    "type": "string",
+                    "description": "Runbook URL surfaced on incidents for this check.\n"
+                },
+                "scheduleType": {
+                    "type": "string",
+                    "description": "Schedule type (heartbeat checks). Server default: interval.\n"
+                },
+                "sslVerify": {
+                    "type": "boolean",
+                    "description": "Verify SSL certificate.\n"
+                },
+                "timeout": {
+                    "type": "integer",
+                    "description": "Timeout in seconds.\n"
+                },
+                "tracerouteOnTimeout": {
+                    "type": "boolean",
+                    "description": "Run traceroute automatically on timeout.\n"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Check type.\n"
+                },
+                "url": {
+                    "type": "string",
+                    "description": "URL to check (uptime checks).\n"
+                }
+            },
+            "required": [
+                "alertAfterFailures",
+                "apiScenarioSteps",
+                "assignedAgentIds",
+                "authMethod",
+                "authUsername",
+                "checkSourceCritical",
+                "contentMatchCaseSensitive",
+                "contentMatchEnabled",
+                "contentMatchText",
+                "contentMatchType",
+                "cronExpression",
+                "cronTimezone",
+                "dbExpectedResult",
+                "dbHost",
+                "dbName",
+                "dbPort",
+                "dbQuery",
+                "dbSslEnabled",
+                "dbType",
+                "dbUsername",
+                "description",
+                "dnsDkimSelector",
+                "dnsExpectedIps",
+                "dnsExpectedValue",
+                "dnsHijackAlertChannelIds",
+                "dnsHijackAlertEnabled",
+                "dnsMultiRecordEnabled",
+                "dnsRecordType",
+                "dnsRecordsConfig",
+                "dnsServer",
+                "dnsSoaAlertOnChange",
+                "dnsTxtMonitoringEnabled",
+                "expectedStatusCodes",
+                "ftpPassive",
+                "ftpPath",
+                "ftpProtocol",
+                "ftpUsername",
+                "geoMonitoringEnabled",
+                "gracePeriod",
+                "host",
+                "httpBody",
+                "httpBodyType",
+                "httpFollowRedirects",
+                "httpFormCheckAfterLoginUrl",
+                "httpFormLoginData",
+                "httpFormLoginEnabled",
+                "httpFormLoginSuccessText",
+                "httpFormLoginUrl",
+                "httpHeaders",
+                "httpMethod",
+                "interval",
+                "isActive",
+                "mailBlacklistServers",
+                "mailCheckBlacklist",
+                "mailCheckDkim",
+                "mailCheckDmarc",
+                "mailCheckPtr",
+                "mailCheckSpf",
+                "mailDkimSelectors",
+                "mailDomain",
+                "mailImapEnabled",
+                "mailImapPort",
+                "mailImapSsl",
+                "mailPop3Enabled",
+                "mailPop3Port",
+                "mailPop3Ssl",
+                "mailSmtpEnabled",
+                "mailSmtpOpenRelay",
+                "mailSmtpPort",
+                "mailSmtpStarttls",
+                "name",
+                "oidcConfig",
+                "pingCount",
+                "port",
+                "projectId",
+                "responseAssertions",
+                "runbookUrl",
+                "scheduleType",
+                "sslVerify",
+                "timeout",
+                "tracerouteOnTimeout",
+                "type",
+                "url"
+            ],
+            "inputProperties": {
+                "alertAfterFailures": {
+                    "type": "integer",
+                    "description": "Number of consecutive failures before alerting.\n"
+                },
+                "apiScenarioSecrets": {
+                    "type": "string",
+                    "description": "Secrets for api_scenario steps as a JSON object. Write-only: encrypted server-side, never read back.\n",
+                    "secret": true
+                },
+                "apiScenarioSteps": {
+                    "type": "string",
+                    "description": "Multi-step API scenario definition as JSON (api_scenario checks).\n"
+                },
+                "assignedAgentId": {
+                    "type": "integer",
+                    "description": "ID of the private agent assigned to this check.\n"
+                },
+                "assignedAgentIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "description": "IDs of agents assigned to this check (multi/geo monitoring).\n"
+                },
+                "authBearerToken": {
+                    "type": "string",
+                    "description": "HTTP bearer token. Write-only: encrypted server-side, never read back.\n",
+                    "secret": true
+                },
+                "authMethod": {
+                    "type": "string",
+                    "description": "Authentication method (uptime checks). Server default: NONE.\n"
+                },
+                "authPassword": {
+                    "type": "string",
+                    "description": "HTTP basic-auth password. Write-only: encrypted server-side, never read back.\n",
+                    "secret": true
+                },
+                "authUsername": {
+                    "type": "string",
+                    "description": "HTTP basic-auth username.\n"
+                },
+                "checkSourceCritical": {
+                    "type": "string",
+                    "description": "Per-source criticality config as JSON.\n"
+                },
+                "contentMatchCaseSensitive": {
+                    "type": "boolean",
+                    "description": "Case-sensitive content match.\n"
+                },
+                "contentMatchEnabled": {
+                    "type": "boolean",
+                    "description": "Enable response content matching.\n"
+                },
+                "contentMatchText": {
+                    "type": "string",
+                    "description": "Text or regex to match in the response.\n"
+                },
+                "contentMatchType": {
+                    "type": "string",
+                    "description": "contains, not_contains, regex.\n"
+                },
+                "cronExpression": {
+                    "type": "string",
+                    "description": "Cron expression (heartbeat checks).\n"
+                },
+                "cronTimezone": {
+                    "type": "string",
+                    "description": "Cron timezone (heartbeat checks). Server default: UTC.\n"
+                },
+                "dbExpectedResult": {
+                    "type": "string",
+                    "description": "Expected query result for validation (database checks).\n"
+                },
+                "dbHost": {
+                    "type": "string",
+                    "description": "Database host (database checks).\n"
+                },
+                "dbName": {
+                    "type": "string",
+                    "description": "Database name (database checks).\n"
+                },
+                "dbPassword": {
+                    "type": "string",
+                    "description": "Database password (database checks). Write-only: encrypted at rest and never returned by the API, so it is not refreshed\ninto state.\n",
+                    "secret": true
+                },
+                "dbPort": {
+                    "type": "integer",
+                    "description": "Database port (database checks).\n"
+                },
+                "dbQuery": {
+                    "type": "string",
+                    "description": "Query to execute (database checks).\n"
+                },
+                "dbSslEnabled": {
+                    "type": "boolean",
+                    "description": "Use SSL/TLS for the database connection (database checks).\n"
+                },
+                "dbType": {
+                    "type": "string",
+                    "description": "Database engine (database checks): postgresql, mysql, mongodb, redis.\n"
+                },
+                "dbUsername": {
+                    "type": "string",
+                    "description": "Database username (database checks).\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Check description.\n"
+                },
+                "dnsDkimSelector": {
+                    "type": "string",
+                    "description": "DKIM selector to check.\n"
+                },
+                "dnsExpectedIps": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Expected IPs for DNS-hijacking detection (dns checks).\n"
+                },
+                "dnsExpectedValue": {
+                    "type": "string",
+                    "description": "Expected DNS record value (dns checks).\n"
+                },
+                "dnsHijackAlertChannelIds": {
+                    "type": "string",
+                    "description": "Channel IDs for hijack alerts.\n"
+                },
+                "dnsHijackAlertEnabled": {
+                    "type": "boolean",
+                    "description": "Enable DNS-hijacking alerts.\n"
+                },
+                "dnsMultiRecordEnabled": {
+                    "type": "boolean",
+                    "description": "Enable multi-record DNS monitoring.\n"
+                },
+                "dnsRecordType": {
+                    "type": "string",
+                    "description": "DNS record type to query (dns checks). Server default: A.\n"
+                },
+                "dnsRecordsConfig": {
+                    "type": "string",
+                    "description": "Per-record config for multi-record DNS monitoring as JSON.\n"
+                },
+                "dnsServer": {
+                    "type": "string",
+                    "description": "DNS server to query (dns checks).\n"
+                },
+                "dnsSoaAlertOnChange": {
+                    "type": "boolean",
+                    "description": "Alert when the SOA serial changes.\n"
+                },
+                "dnsTxtMonitoringEnabled": {
+                    "type": "boolean",
+                    "description": "Enable TXT (SPF/DKIM/DMARC) monitoring.\n"
+                },
+                "escalationPolicyId": {
+                    "type": "integer",
+                    "description": "ID of the escalation policy.\n"
+                },
+                "expectedStatusCodes": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "description": "Accepted HTTP status codes (uptime checks). Defaults to [200] server-side.\n"
+                },
+                "ftpPassive": {
+                    "type": "boolean",
+                    "description": "Use passive mode.\n"
+                },
+                "ftpPassword": {
+                    "type": "string",
+                    "description": "FTP password. Write-only: encrypted server-side, never read back.\n",
+                    "secret": true
+                },
+                "ftpPath": {
+                    "type": "string",
+                    "description": "Path to list/verify.\n"
+                },
+                "ftpProtocol": {
+                    "type": "string",
+                    "description": "FTP, FTPS or SFTP.\n"
+                },
+                "ftpUsername": {
+                    "type": "string",
+                    "description": "FTP username (empty for anonymous).\n"
+                },
+                "geoMonitoringEnabled": {
+                    "type": "boolean",
+                    "description": "Enable geo-distributed monitoring.\n"
+                },
+                "gracePeriod": {
+                    "type": "integer",
+                    "description": "Grace period in seconds before marking as down.\n"
+                },
+                "host": {
+                    "type": "string",
+                    "description": "Host to check (icmp, tcp, udp, dns, ftp checks).\n"
+                },
+                "httpBody": {
+                    "type": "string",
+                    "description": "Request body (POST/PUT/PATCH).\n"
+                },
+                "httpBodyType": {
+                    "type": "string",
+                    "description": "Request body type: none, json, form, raw.\n"
+                },
+                "httpFollowRedirects": {
+                    "type": "boolean",
+                    "description": "Follow HTTP redirects.\n"
+                },
+                "httpFormCheckAfterLoginUrl": {
+                    "type": "string",
+                    "description": "URL to check after logging in.\n"
+                },
+                "httpFormLoginData": {
+                    "type": "string",
+                    "description": "Form fields for HTTP form login as a JSON object, e.g. jsonencode({username=\"u\",password=\"p\"}).\n",
+                    "secret": true
+                },
+                "httpFormLoginEnabled": {
+                    "type": "boolean",
+                    "description": "Authenticate via an HTML form before checking.\n"
+                },
+                "httpFormLoginSuccessText": {
+                    "type": "string",
+                    "description": "Text confirming successful login.\n"
+                },
+                "httpFormLoginUrl": {
+                    "type": "string",
+                    "description": "URL to POST the login form to.\n"
+                },
+                "httpHeaders": {
+                    "type": "string",
+                    "description": "Custom HTTP request headers as a JSON object, e.g. jsonencode({\"X-Api-Key\"=\"...\"}).\n",
+                    "secret": true
+                },
+                "httpMethod": {
+                    "type": "string",
+                    "description": "HTTP method (uptime checks). Server default: GET.\n"
+                },
+                "interval": {
+                    "type": "integer",
+                    "description": "Check interval in seconds.\n"
+                },
+                "isActive": {
+                    "type": "boolean",
+                    "description": "Whether the check is active.\n"
+                },
+                "mailBlacklistServers": {
+                    "type": "string",
+                    "description": "Comma-separated RBL servers.\n"
+                },
+                "mailCheckBlacklist": {
+                    "type": "boolean",
+                    "description": "Check RBL blacklists.\n"
+                },
+                "mailCheckDkim": {
+                    "type": "boolean",
+                    "description": "Check DKIM.\n"
+                },
+                "mailCheckDmarc": {
+                    "type": "boolean",
+                    "description": "Check DMARC.\n"
+                },
+                "mailCheckPtr": {
+                    "type": "boolean",
+                    "description": "Check reverse DNS (PTR).\n"
+                },
+                "mailCheckSpf": {
+                    "type": "boolean",
+                    "description": "Check SPF record.\n"
+                },
+                "mailDkimSelectors": {
+                    "type": "string",
+                    "description": "Comma-separated DKIM selectors.\n"
+                },
+                "mailDomain": {
+                    "type": "string",
+                    "description": "Mail domain to check (mail checks).\n"
+                },
+                "mailImapEnabled": {
+                    "type": "boolean",
+                    "description": "Check IMAP.\n"
+                },
+                "mailImapPort": {
+                    "type": "integer",
+                    "description": "IMAP port (143/993).\n"
+                },
+                "mailImapSsl": {
+                    "type": "boolean",
+                    "description": "Use IMAP SSL.\n"
+                },
+                "mailPop3Enabled": {
+                    "type": "boolean",
+                    "description": "Check POP3.\n"
+                },
+                "mailPop3Port": {
+                    "type": "integer",
+                    "description": "POP3 port (110/995).\n"
+                },
+                "mailPop3Ssl": {
+                    "type": "boolean",
+                    "description": "Use POP3 SSL.\n"
+                },
+                "mailSmtpEnabled": {
+                    "type": "boolean",
+                    "description": "Check SMTP.\n"
+                },
+                "mailSmtpOpenRelay": {
+                    "type": "boolean",
+                    "description": "Check for an open relay.\n"
+                },
+                "mailSmtpPort": {
+                    "type": "integer",
+                    "description": "SMTP port (25/465/587).\n"
+                },
+                "mailSmtpStarttls": {
+                    "type": "boolean",
+                    "description": "Check STARTTLS support.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Check name.\n"
+                },
+                "oidcConfig": {
+                    "type": "string",
+                    "description": "OIDC identity-provider check configuration as JSON (oidc checks).\n"
+                },
+                "pingCount": {
+                    "type": "integer",
+                    "description": "Number of ICMP pings to send.\n"
+                },
+                "port": {
+                    "type": "integer",
+                    "description": "Port number (tcp, udp, ftp checks).\n"
+                },
+                "projectId": {
+                    "type": "integer",
+                    "description": "Project ID that owns this check.\n"
+                },
+                "responseAssertions": {
+                    "type": "string",
+                    "description": "Response assertions as a JSON array (http/uptime checks).\n"
+                },
+                "runbookUrl": {
+                    "type": "string",
+                    "description": "Runbook URL surfaced on incidents for this check.\n"
+                },
+                "scheduleType": {
+                    "type": "string",
+                    "description": "Schedule type (heartbeat checks). Server default: interval.\n"
+                },
+                "sslVerify": {
+                    "type": "boolean",
+                    "description": "Verify SSL certificate.\n"
+                },
+                "timeout": {
+                    "type": "integer",
+                    "description": "Timeout in seconds.\n"
+                },
+                "tracerouteOnTimeout": {
+                    "type": "boolean",
+                    "description": "Run traceroute automatically on timeout.\n"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Check type.\n"
+                },
+                "url": {
+                    "type": "string",
+                    "description": "URL to check (uptime checks).\n"
+                }
+            },
+            "requiredInputs": [
+                "name",
+                "projectId",
+                "type"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Check resources.\n",
+                "properties": {
+                    "alertAfterFailures": {
+                        "type": "integer",
+                        "description": "Number of consecutive failures before alerting.\n"
+                    },
+                    "apiScenarioSecrets": {
+                        "type": "string",
+                        "description": "Secrets for api_scenario steps as a JSON object. Write-only: encrypted server-side, never read back.\n",
+                        "secret": true
+                    },
+                    "apiScenarioSteps": {
+                        "type": "string",
+                        "description": "Multi-step API scenario definition as JSON (api_scenario checks).\n"
+                    },
+                    "assignedAgentId": {
+                        "type": "integer",
+                        "description": "ID of the private agent assigned to this check.\n"
+                    },
+                    "assignedAgentIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "description": "IDs of agents assigned to this check (multi/geo monitoring).\n"
+                    },
+                    "authBearerToken": {
+                        "type": "string",
+                        "description": "HTTP bearer token. Write-only: encrypted server-side, never read back.\n",
+                        "secret": true
+                    },
+                    "authMethod": {
+                        "type": "string",
+                        "description": "Authentication method (uptime checks). Server default: NONE.\n"
+                    },
+                    "authPassword": {
+                        "type": "string",
+                        "description": "HTTP basic-auth password. Write-only: encrypted server-side, never read back.\n",
+                        "secret": true
+                    },
+                    "authUsername": {
+                        "type": "string",
+                        "description": "HTTP basic-auth username.\n"
+                    },
+                    "checkSourceCritical": {
+                        "type": "string",
+                        "description": "Per-source criticality config as JSON.\n"
+                    },
+                    "contentMatchCaseSensitive": {
+                        "type": "boolean",
+                        "description": "Case-sensitive content match.\n"
+                    },
+                    "contentMatchEnabled": {
+                        "type": "boolean",
+                        "description": "Enable response content matching.\n"
+                    },
+                    "contentMatchText": {
+                        "type": "string",
+                        "description": "Text or regex to match in the response.\n"
+                    },
+                    "contentMatchType": {
+                        "type": "string",
+                        "description": "contains, not_contains, regex.\n"
+                    },
+                    "cronExpression": {
+                        "type": "string",
+                        "description": "Cron expression (heartbeat checks).\n"
+                    },
+                    "cronTimezone": {
+                        "type": "string",
+                        "description": "Cron timezone (heartbeat checks). Server default: UTC.\n"
+                    },
+                    "dbExpectedResult": {
+                        "type": "string",
+                        "description": "Expected query result for validation (database checks).\n"
+                    },
+                    "dbHost": {
+                        "type": "string",
+                        "description": "Database host (database checks).\n"
+                    },
+                    "dbName": {
+                        "type": "string",
+                        "description": "Database name (database checks).\n"
+                    },
+                    "dbPassword": {
+                        "type": "string",
+                        "description": "Database password (database checks). Write-only: encrypted at rest and never returned by the API, so it is not refreshed\ninto state.\n",
+                        "secret": true
+                    },
+                    "dbPort": {
+                        "type": "integer",
+                        "description": "Database port (database checks).\n"
+                    },
+                    "dbQuery": {
+                        "type": "string",
+                        "description": "Query to execute (database checks).\n"
+                    },
+                    "dbSslEnabled": {
+                        "type": "boolean",
+                        "description": "Use SSL/TLS for the database connection (database checks).\n"
+                    },
+                    "dbType": {
+                        "type": "string",
+                        "description": "Database engine (database checks): postgresql, mysql, mongodb, redis.\n"
+                    },
+                    "dbUsername": {
+                        "type": "string",
+                        "description": "Database username (database checks).\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Check description.\n"
+                    },
+                    "dnsDkimSelector": {
+                        "type": "string",
+                        "description": "DKIM selector to check.\n"
+                    },
+                    "dnsExpectedIps": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Expected IPs for DNS-hijacking detection (dns checks).\n"
+                    },
+                    "dnsExpectedValue": {
+                        "type": "string",
+                        "description": "Expected DNS record value (dns checks).\n"
+                    },
+                    "dnsHijackAlertChannelIds": {
+                        "type": "string",
+                        "description": "Channel IDs for hijack alerts.\n"
+                    },
+                    "dnsHijackAlertEnabled": {
+                        "type": "boolean",
+                        "description": "Enable DNS-hijacking alerts.\n"
+                    },
+                    "dnsMultiRecordEnabled": {
+                        "type": "boolean",
+                        "description": "Enable multi-record DNS monitoring.\n"
+                    },
+                    "dnsRecordType": {
+                        "type": "string",
+                        "description": "DNS record type to query (dns checks). Server default: A.\n"
+                    },
+                    "dnsRecordsConfig": {
+                        "type": "string",
+                        "description": "Per-record config for multi-record DNS monitoring as JSON.\n"
+                    },
+                    "dnsServer": {
+                        "type": "string",
+                        "description": "DNS server to query (dns checks).\n"
+                    },
+                    "dnsSoaAlertOnChange": {
+                        "type": "boolean",
+                        "description": "Alert when the SOA serial changes.\n"
+                    },
+                    "dnsTxtMonitoringEnabled": {
+                        "type": "boolean",
+                        "description": "Enable TXT (SPF/DKIM/DMARC) monitoring.\n"
+                    },
+                    "escalationPolicyId": {
+                        "type": "integer",
+                        "description": "ID of the escalation policy.\n"
+                    },
+                    "expectedStatusCodes": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "description": "Accepted HTTP status codes (uptime checks). Defaults to [200] server-side.\n"
+                    },
+                    "ftpPassive": {
+                        "type": "boolean",
+                        "description": "Use passive mode.\n"
+                    },
+                    "ftpPassword": {
+                        "type": "string",
+                        "description": "FTP password. Write-only: encrypted server-side, never read back.\n",
+                        "secret": true
+                    },
+                    "ftpPath": {
+                        "type": "string",
+                        "description": "Path to list/verify.\n"
+                    },
+                    "ftpProtocol": {
+                        "type": "string",
+                        "description": "FTP, FTPS or SFTP.\n"
+                    },
+                    "ftpUsername": {
+                        "type": "string",
+                        "description": "FTP username (empty for anonymous).\n"
+                    },
+                    "geoMonitoringEnabled": {
+                        "type": "boolean",
+                        "description": "Enable geo-distributed monitoring.\n"
+                    },
+                    "gracePeriod": {
+                        "type": "integer",
+                        "description": "Grace period in seconds before marking as down.\n"
+                    },
+                    "host": {
+                        "type": "string",
+                        "description": "Host to check (icmp, tcp, udp, dns, ftp checks).\n"
+                    },
+                    "httpBody": {
+                        "type": "string",
+                        "description": "Request body (POST/PUT/PATCH).\n"
+                    },
+                    "httpBodyType": {
+                        "type": "string",
+                        "description": "Request body type: none, json, form, raw.\n"
+                    },
+                    "httpFollowRedirects": {
+                        "type": "boolean",
+                        "description": "Follow HTTP redirects.\n"
+                    },
+                    "httpFormCheckAfterLoginUrl": {
+                        "type": "string",
+                        "description": "URL to check after logging in.\n"
+                    },
+                    "httpFormLoginData": {
+                        "type": "string",
+                        "description": "Form fields for HTTP form login as a JSON object, e.g. jsonencode({username=\"u\",password=\"p\"}).\n",
+                        "secret": true
+                    },
+                    "httpFormLoginEnabled": {
+                        "type": "boolean",
+                        "description": "Authenticate via an HTML form before checking.\n"
+                    },
+                    "httpFormLoginSuccessText": {
+                        "type": "string",
+                        "description": "Text confirming successful login.\n"
+                    },
+                    "httpFormLoginUrl": {
+                        "type": "string",
+                        "description": "URL to POST the login form to.\n"
+                    },
+                    "httpHeaders": {
+                        "type": "string",
+                        "description": "Custom HTTP request headers as a JSON object, e.g. jsonencode({\"X-Api-Key\"=\"...\"}).\n",
+                        "secret": true
+                    },
+                    "httpMethod": {
+                        "type": "string",
+                        "description": "HTTP method (uptime checks). Server default: GET.\n"
+                    },
+                    "interval": {
+                        "type": "integer",
+                        "description": "Check interval in seconds.\n"
+                    },
+                    "isActive": {
+                        "type": "boolean",
+                        "description": "Whether the check is active.\n"
+                    },
+                    "mailBlacklistServers": {
+                        "type": "string",
+                        "description": "Comma-separated RBL servers.\n"
+                    },
+                    "mailCheckBlacklist": {
+                        "type": "boolean",
+                        "description": "Check RBL blacklists.\n"
+                    },
+                    "mailCheckDkim": {
+                        "type": "boolean",
+                        "description": "Check DKIM.\n"
+                    },
+                    "mailCheckDmarc": {
+                        "type": "boolean",
+                        "description": "Check DMARC.\n"
+                    },
+                    "mailCheckPtr": {
+                        "type": "boolean",
+                        "description": "Check reverse DNS (PTR).\n"
+                    },
+                    "mailCheckSpf": {
+                        "type": "boolean",
+                        "description": "Check SPF record.\n"
+                    },
+                    "mailDkimSelectors": {
+                        "type": "string",
+                        "description": "Comma-separated DKIM selectors.\n"
+                    },
+                    "mailDomain": {
+                        "type": "string",
+                        "description": "Mail domain to check (mail checks).\n"
+                    },
+                    "mailImapEnabled": {
+                        "type": "boolean",
+                        "description": "Check IMAP.\n"
+                    },
+                    "mailImapPort": {
+                        "type": "integer",
+                        "description": "IMAP port (143/993).\n"
+                    },
+                    "mailImapSsl": {
+                        "type": "boolean",
+                        "description": "Use IMAP SSL.\n"
+                    },
+                    "mailPop3Enabled": {
+                        "type": "boolean",
+                        "description": "Check POP3.\n"
+                    },
+                    "mailPop3Port": {
+                        "type": "integer",
+                        "description": "POP3 port (110/995).\n"
+                    },
+                    "mailPop3Ssl": {
+                        "type": "boolean",
+                        "description": "Use POP3 SSL.\n"
+                    },
+                    "mailSmtpEnabled": {
+                        "type": "boolean",
+                        "description": "Check SMTP.\n"
+                    },
+                    "mailSmtpOpenRelay": {
+                        "type": "boolean",
+                        "description": "Check for an open relay.\n"
+                    },
+                    "mailSmtpPort": {
+                        "type": "integer",
+                        "description": "SMTP port (25/465/587).\n"
+                    },
+                    "mailSmtpStarttls": {
+                        "type": "boolean",
+                        "description": "Check STARTTLS support.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Check name.\n"
+                    },
+                    "oidcConfig": {
+                        "type": "string",
+                        "description": "OIDC identity-provider check configuration as JSON (oidc checks).\n"
+                    },
+                    "pingCount": {
+                        "type": "integer",
+                        "description": "Number of ICMP pings to send.\n"
+                    },
+                    "port": {
+                        "type": "integer",
+                        "description": "Port number (tcp, udp, ftp checks).\n"
+                    },
+                    "projectId": {
+                        "type": "integer",
+                        "description": "Project ID that owns this check.\n"
+                    },
+                    "responseAssertions": {
+                        "type": "string",
+                        "description": "Response assertions as a JSON array (http/uptime checks).\n"
+                    },
+                    "runbookUrl": {
+                        "type": "string",
+                        "description": "Runbook URL surfaced on incidents for this check.\n"
+                    },
+                    "scheduleType": {
+                        "type": "string",
+                        "description": "Schedule type (heartbeat checks). Server default: interval.\n"
+                    },
+                    "sslVerify": {
+                        "type": "boolean",
+                        "description": "Verify SSL certificate.\n"
+                    },
+                    "timeout": {
+                        "type": "integer",
+                        "description": "Timeout in seconds.\n"
+                    },
+                    "tracerouteOnTimeout": {
+                        "type": "boolean",
+                        "description": "Run traceroute automatically on timeout.\n"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Check type.\n"
+                    },
+                    "url": {
+                        "type": "string",
+                        "description": "URL to check (uptime checks).\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "systeam:index/checkSlo:CheckSlo": {
+            "properties": {
+                "budgetWarnPct": {
+                    "type": "number",
+                    "description": "Error budget warning threshold percentage.\n"
+                },
+                "burnRateAlertEnabled": {
+                    "type": "boolean",
+                    "description": "Whether burn rate alerts are enabled.\n"
+                },
+                "burnRateThreshold": {
+                    "type": "number",
+                    "description": "Burn rate threshold for alerts.\n"
+                },
+                "burnRateWindowMinutes": {
+                    "type": "integer",
+                    "description": "Burn rate evaluation window in minutes.\n"
+                },
+                "checkId": {
+                    "type": "integer",
+                    "description": "The ID of the check this SLO belongs to.\n"
+                },
+                "isActive": {
+                    "type": "boolean",
+                    "description": "Whether the SLO is active.\n"
+                },
+                "latencyThresholdMs": {
+                    "type": "integer",
+                    "description": "Latency threshold in milliseconds for latency-based SLIs.\n"
+                },
+                "notifyOnBudgetExhausted": {
+                    "type": "boolean",
+                    "description": "Send notification when error budget is exhausted.\n"
+                },
+                "notifyOnBudgetWarn": {
+                    "type": "boolean",
+                    "description": "Send notification when error budget reaches warning threshold.\n"
+                },
+                "sliType": {
+                    "type": "string",
+                    "description": "The SLI type. Currently only 'availability' is supported.\n"
+                },
+                "targetPercentage": {
+                    "type": "number",
+                    "description": "The SLO target percentage (90.0 - 100.0).\n"
+                },
+                "windowDays": {
+                    "type": "integer",
+                    "description": "The SLO window in days (7, 30, or 90).\n"
+                }
+            },
+            "required": [
+                "budgetWarnPct",
+                "burnRateAlertEnabled",
+                "burnRateThreshold",
+                "burnRateWindowMinutes",
+                "checkId",
+                "isActive",
+                "notifyOnBudgetExhausted",
+                "notifyOnBudgetWarn",
+                "sliType",
+                "targetPercentage",
+                "windowDays"
+            ],
+            "inputProperties": {
+                "budgetWarnPct": {
+                    "type": "number",
+                    "description": "Error budget warning threshold percentage.\n"
+                },
+                "burnRateAlertEnabled": {
+                    "type": "boolean",
+                    "description": "Whether burn rate alerts are enabled.\n"
+                },
+                "burnRateThreshold": {
+                    "type": "number",
+                    "description": "Burn rate threshold for alerts.\n"
+                },
+                "burnRateWindowMinutes": {
+                    "type": "integer",
+                    "description": "Burn rate evaluation window in minutes.\n"
+                },
+                "checkId": {
+                    "type": "integer",
+                    "description": "The ID of the check this SLO belongs to.\n"
+                },
+                "isActive": {
+                    "type": "boolean",
+                    "description": "Whether the SLO is active.\n"
+                },
+                "latencyThresholdMs": {
+                    "type": "integer",
+                    "description": "Latency threshold in milliseconds for latency-based SLIs.\n"
+                },
+                "notifyOnBudgetExhausted": {
+                    "type": "boolean",
+                    "description": "Send notification when error budget is exhausted.\n"
+                },
+                "notifyOnBudgetWarn": {
+                    "type": "boolean",
+                    "description": "Send notification when error budget reaches warning threshold.\n"
+                },
+                "sliType": {
+                    "type": "string",
+                    "description": "The SLI type. Currently only 'availability' is supported.\n"
+                },
+                "targetPercentage": {
+                    "type": "number",
+                    "description": "The SLO target percentage (90.0 - 100.0).\n"
+                },
+                "windowDays": {
+                    "type": "integer",
+                    "description": "The SLO window in days (7, 30, or 90).\n"
+                }
+            },
+            "requiredInputs": [
+                "checkId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering CheckSlo resources.\n",
+                "properties": {
+                    "budgetWarnPct": {
+                        "type": "number",
+                        "description": "Error budget warning threshold percentage.\n"
+                    },
+                    "burnRateAlertEnabled": {
+                        "type": "boolean",
+                        "description": "Whether burn rate alerts are enabled.\n"
+                    },
+                    "burnRateThreshold": {
+                        "type": "number",
+                        "description": "Burn rate threshold for alerts.\n"
+                    },
+                    "burnRateWindowMinutes": {
+                        "type": "integer",
+                        "description": "Burn rate evaluation window in minutes.\n"
+                    },
+                    "checkId": {
+                        "type": "integer",
+                        "description": "The ID of the check this SLO belongs to.\n"
+                    },
+                    "isActive": {
+                        "type": "boolean",
+                        "description": "Whether the SLO is active.\n"
+                    },
+                    "latencyThresholdMs": {
+                        "type": "integer",
+                        "description": "Latency threshold in milliseconds for latency-based SLIs.\n"
+                    },
+                    "notifyOnBudgetExhausted": {
+                        "type": "boolean",
+                        "description": "Send notification when error budget is exhausted.\n"
+                    },
+                    "notifyOnBudgetWarn": {
+                        "type": "boolean",
+                        "description": "Send notification when error budget reaches warning threshold.\n"
+                    },
+                    "sliType": {
+                        "type": "string",
+                        "description": "The SLI type. Currently only 'availability' is supported.\n"
+                    },
+                    "targetPercentage": {
+                        "type": "number",
+                        "description": "The SLO target percentage (90.0 - 100.0).\n"
+                    },
+                    "windowDays": {
+                        "type": "integer",
+                        "description": "The SLO window in days (7, 30, or 90).\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "systeam:index/contactMethod:ContactMethod": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Whether the method is enabled for notifications.\n"
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Contact channel: sms, voice, email, or push.\n"
+                },
+                "label": {
+                    "type": "string",
+                    "description": "A human-readable label.\n"
+                },
+                "value": {
+                    "type": "string",
+                    "description": "The phone number (sms/voice) or email address (email). Omit for push.\n"
+                },
+                "verified": {
+                    "type": "boolean",
+                    "description": "Whether the method has been verified (read-only; verify out of band).\n"
+                }
+            },
+            "required": [
+                "enabled",
+                "kind",
+                "label",
+                "verified"
+            ],
+            "inputProperties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Whether the method is enabled for notifications.\n"
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Contact channel: sms, voice, email, or push.\n"
+                },
+                "label": {
+                    "type": "string",
+                    "description": "A human-readable label.\n"
+                },
+                "value": {
+                    "type": "string",
+                    "description": "The phone number (sms/voice) or email address (email). Omit for push.\n"
+                }
+            },
+            "requiredInputs": [
+                "kind"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering ContactMethod resources.\n",
+                "properties": {
+                    "enabled": {
+                        "type": "boolean",
+                        "description": "Whether the method is enabled for notifications.\n"
+                    },
+                    "kind": {
+                        "type": "string",
+                        "description": "Contact channel: sms, voice, email, or push.\n"
+                    },
+                    "label": {
+                        "type": "string",
+                        "description": "A human-readable label.\n"
+                    },
+                    "value": {
+                        "type": "string",
+                        "description": "The phone number (sms/voice) or email address (email). Omit for push.\n"
+                    },
+                    "verified": {
+                        "type": "boolean",
+                        "description": "Whether the method has been verified (read-only; verify out of band).\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "systeam:index/escalationPolicy:EscalationPolicy": {
+            "properties": {
+                "isActive": {
+                    "type": "boolean",
+                    "description": "Whether the escalation policy is active.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the escalation policy.\n"
+                },
+                "organizationId": {
+                    "type": "integer",
+                    "description": "The ID of the organization this policy belongs to.\n"
+                },
+                "steps": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/systeam:index/EscalationPolicyStep:EscalationPolicyStep"
+                    },
+                    "description": "Ordered escalation steps.\n"
+                }
+            },
+            "required": [
+                "isActive",
+                "name",
+                "organizationId"
+            ],
+            "inputProperties": {
+                "isActive": {
+                    "type": "boolean",
+                    "description": "Whether the escalation policy is active.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the escalation policy.\n"
+                },
+                "organizationId": {
+                    "type": "integer",
+                    "description": "The ID of the organization this policy belongs to.\n"
+                },
+                "steps": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/systeam:index/EscalationPolicyStep:EscalationPolicyStep"
+                    },
+                    "description": "Ordered escalation steps.\n"
+                }
+            },
+            "requiredInputs": [
+                "name",
+                "organizationId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering EscalationPolicy resources.\n",
+                "properties": {
+                    "isActive": {
+                        "type": "boolean",
+                        "description": "Whether the escalation policy is active.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the escalation policy.\n"
+                    },
+                    "organizationId": {
+                        "type": "integer",
+                        "description": "The ID of the organization this policy belongs to.\n"
+                    },
+                    "steps": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/systeam:index/EscalationPolicyStep:EscalationPolicyStep"
+                        },
+                        "description": "Ordered escalation steps.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "systeam:index/integrationKey:IntegrationKey": {
+            "properties": {
+                "escalationPolicyId": {
+                    "type": "integer",
+                    "description": "The escalation policy that inbound events on this key are routed to.\n"
+                },
+                "groupingType": {
+                    "type": "string",
+                    "description": "How incoming alerts are grouped into incidents: none, time_window, service, or intelligent.\n"
+                },
+                "groupingWindowSeconds": {
+                    "type": "integer",
+                    "description": "The grouping window in seconds (used when grouping_type is not 'none').\n"
+                },
+                "isActive": {
+                    "type": "boolean",
+                    "description": "Whether the key is active (revoked keys are inactive).\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "A human-readable name for the key.\n"
+                },
+                "organizationId": {
+                    "type": "integer",
+                    "description": "The ID of the organization this key belongs to.\n"
+                },
+                "token": {
+                    "type": "string",
+                    "description": "The full secret routing key. Returned ONLY at creation; put it in your Alertmanager/Grafana webhook URL. It is not\nreadable afterwards, so it is preserved in state from the create.\n",
+                    "secret": true
+                },
+                "tokenPrefix": {
+                    "type": "string",
+                    "description": "The non-secret prefix of the key, shown in the UI to identify it.\n"
+                }
+            },
+            "required": [
+                "escalationPolicyId",
+                "groupingType",
+                "groupingWindowSeconds",
+                "isActive",
+                "name",
+                "organizationId",
+                "token",
+                "tokenPrefix"
+            ],
+            "inputProperties": {
+                "escalationPolicyId": {
+                    "type": "integer",
+                    "description": "The escalation policy that inbound events on this key are routed to.\n"
+                },
+                "groupingType": {
+                    "type": "string",
+                    "description": "How incoming alerts are grouped into incidents: none, time_window, service, or intelligent.\n"
+                },
+                "groupingWindowSeconds": {
+                    "type": "integer",
+                    "description": "The grouping window in seconds (used when grouping_type is not 'none').\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "A human-readable name for the key.\n"
+                },
+                "organizationId": {
+                    "type": "integer",
+                    "description": "The ID of the organization this key belongs to.\n"
+                }
+            },
+            "requiredInputs": [
+                "escalationPolicyId",
+                "name",
+                "organizationId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering IntegrationKey resources.\n",
+                "properties": {
+                    "escalationPolicyId": {
+                        "type": "integer",
+                        "description": "The escalation policy that inbound events on this key are routed to.\n"
+                    },
+                    "groupingType": {
+                        "type": "string",
+                        "description": "How incoming alerts are grouped into incidents: none, time_window, service, or intelligent.\n"
+                    },
+                    "groupingWindowSeconds": {
+                        "type": "integer",
+                        "description": "The grouping window in seconds (used when grouping_type is not 'none').\n"
+                    },
+                    "isActive": {
+                        "type": "boolean",
+                        "description": "Whether the key is active (revoked keys are inactive).\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "A human-readable name for the key.\n"
+                    },
+                    "organizationId": {
+                        "type": "integer",
+                        "description": "The ID of the organization this key belongs to.\n"
+                    },
+                    "token": {
+                        "type": "string",
+                        "description": "The full secret routing key. Returned ONLY at creation; put it in your Alertmanager/Grafana webhook URL. It is not\nreadable afterwards, so it is preserved in state from the create.\n",
+                        "secret": true
+                    },
+                    "tokenPrefix": {
+                        "type": "string",
+                        "description": "The non-secret prefix of the key, shown in the UI to identify it.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "systeam:index/lifecycleWatch:LifecycleWatch": {
+            "properties": {
+                "channelIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "description": "Notification channels to alert. Write-only: the API does not return these on read.\n"
+                },
+                "notify30d": {
+                    "type": "boolean",
+                    "description": "Notify 30 days before end-of-life.\n"
+                },
+                "notify7d": {
+                    "type": "boolean",
+                    "description": "Notify 7 days before end-of-life.\n"
+                },
+                "notify90d": {
+                    "type": "boolean",
+                    "description": "Notify 90 days before end-of-life.\n"
+                },
+                "notifyOnNew": {
+                    "type": "boolean",
+                    "description": "Notify when a new release/version appears.\n"
+                },
+                "organizationId": {
+                    "type": "integer",
+                    "description": "The organization this watch belongs to.\n"
+                },
+                "platform": {
+                    "type": "string",
+                    "description": "Optional platform qualifier (part of the watch's identity).\n"
+                },
+                "resourceId": {
+                    "type": "string",
+                    "description": "Optional specific resource id to watch (part of the watch's identity).\n"
+                },
+                "resourceType": {
+                    "type": "string",
+                    "description": "The kind of resource being watched (default 'ai_model').\n"
+                },
+                "vendor": {
+                    "type": "string",
+                    "description": "The vendor being watched (e.g. 'openai', 'anthropic').\n"
+                }
+            },
+            "required": [
+                "notify30d",
+                "notify7d",
+                "notify90d",
+                "notifyOnNew",
+                "organizationId",
+                "resourceType",
+                "vendor"
+            ],
+            "inputProperties": {
+                "channelIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "description": "Notification channels to alert. Write-only: the API does not return these on read.\n"
+                },
+                "notify30d": {
+                    "type": "boolean",
+                    "description": "Notify 30 days before end-of-life.\n"
+                },
+                "notify7d": {
+                    "type": "boolean",
+                    "description": "Notify 7 days before end-of-life.\n"
+                },
+                "notify90d": {
+                    "type": "boolean",
+                    "description": "Notify 90 days before end-of-life.\n"
+                },
+                "notifyOnNew": {
+                    "type": "boolean",
+                    "description": "Notify when a new release/version appears.\n"
+                },
+                "organizationId": {
+                    "type": "integer",
+                    "description": "The organization this watch belongs to.\n"
+                },
+                "platform": {
+                    "type": "string",
+                    "description": "Optional platform qualifier (part of the watch's identity).\n"
+                },
+                "resourceId": {
+                    "type": "string",
+                    "description": "Optional specific resource id to watch (part of the watch's identity).\n"
+                },
+                "resourceType": {
+                    "type": "string",
+                    "description": "The kind of resource being watched (default 'ai_model').\n"
+                },
+                "vendor": {
+                    "type": "string",
+                    "description": "The vendor being watched (e.g. 'openai', 'anthropic').\n"
+                }
+            },
+            "requiredInputs": [
+                "organizationId",
+                "vendor"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering LifecycleWatch resources.\n",
+                "properties": {
+                    "channelIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "description": "Notification channels to alert. Write-only: the API does not return these on read.\n"
+                    },
+                    "notify30d": {
+                        "type": "boolean",
+                        "description": "Notify 30 days before end-of-life.\n"
+                    },
+                    "notify7d": {
+                        "type": "boolean",
+                        "description": "Notify 7 days before end-of-life.\n"
+                    },
+                    "notify90d": {
+                        "type": "boolean",
+                        "description": "Notify 90 days before end-of-life.\n"
+                    },
+                    "notifyOnNew": {
+                        "type": "boolean",
+                        "description": "Notify when a new release/version appears.\n"
+                    },
+                    "organizationId": {
+                        "type": "integer",
+                        "description": "The organization this watch belongs to.\n"
+                    },
+                    "platform": {
+                        "type": "string",
+                        "description": "Optional platform qualifier (part of the watch's identity).\n"
+                    },
+                    "resourceId": {
+                        "type": "string",
+                        "description": "Optional specific resource id to watch (part of the watch's identity).\n"
+                    },
+                    "resourceType": {
+                        "type": "string",
+                        "description": "The kind of resource being watched (default 'ai_model').\n"
+                    },
+                    "vendor": {
+                        "type": "string",
+                        "description": "The vendor being watched (e.g. 'openai', 'anthropic').\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "systeam:index/maintenanceWindow:MaintenanceWindow": {
+            "properties": {
+                "checkIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "description": "List of check IDs included in the maintenance window.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the maintenance window.\n"
+                },
+                "endTime": {
+                    "type": "string",
+                    "description": "End time in RFC3339 format.\n"
+                },
+                "isActive": {
+                    "type": "boolean",
+                    "description": "Whether the maintenance window is active.\n"
+                },
+                "isRecurring": {
+                    "type": "boolean",
+                    "description": "Whether the maintenance window is recurring.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the maintenance window.\n"
+                },
+                "organizationId": {
+                    "type": "integer",
+                    "description": "Organization that owns the window. REQUIRED for non-superadmin callers; omit only for a superadmin platform-global\nwindow.\n"
+                },
+                "projectIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "description": "List of project IDs included in the maintenance window.\n"
+                },
+                "recurrencePattern": {
+                    "type": "string",
+                    "description": "Recurrence as JSON when is_recurring=true, e.g.\njsonencode({type=\"weekly\",days=[0,3],time=\"02:00\",duration_minutes=120}). days: Mon=0..Sun=6.\n"
+                },
+                "startTime": {
+                    "type": "string",
+                    "description": "Start time in RFC3339 format.\n"
+                },
+                "timezone": {
+                    "type": "string",
+                    "description": "Timezone for the maintenance window.\n"
+                }
+            },
+            "required": [
+                "checkIds",
+                "description",
+                "endTime",
+                "isActive",
+                "isRecurring",
+                "name",
+                "projectIds",
+                "recurrencePattern",
+                "startTime",
+                "timezone"
+            ],
+            "inputProperties": {
+                "checkIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "description": "List of check IDs included in the maintenance window.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the maintenance window.\n"
+                },
+                "endTime": {
+                    "type": "string",
+                    "description": "End time in RFC3339 format.\n"
+                },
+                "isActive": {
+                    "type": "boolean",
+                    "description": "Whether the maintenance window is active.\n"
+                },
+                "isRecurring": {
+                    "type": "boolean",
+                    "description": "Whether the maintenance window is recurring.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the maintenance window.\n"
+                },
+                "organizationId": {
+                    "type": "integer",
+                    "description": "Organization that owns the window. REQUIRED for non-superadmin callers; omit only for a superadmin platform-global\nwindow.\n"
+                },
+                "projectIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "description": "List of project IDs included in the maintenance window.\n"
+                },
+                "recurrencePattern": {
+                    "type": "string",
+                    "description": "Recurrence as JSON when is_recurring=true, e.g.\njsonencode({type=\"weekly\",days=[0,3],time=\"02:00\",duration_minutes=120}). days: Mon=0..Sun=6.\n"
+                },
+                "startTime": {
+                    "type": "string",
+                    "description": "Start time in RFC3339 format.\n"
+                },
+                "timezone": {
+                    "type": "string",
+                    "description": "Timezone for the maintenance window.\n"
+                }
+            },
+            "requiredInputs": [
+                "endTime",
+                "name",
+                "startTime"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering MaintenanceWindow resources.\n",
+                "properties": {
+                    "checkIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "description": "List of check IDs included in the maintenance window.\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "A description of the maintenance window.\n"
+                    },
+                    "endTime": {
+                        "type": "string",
+                        "description": "End time in RFC3339 format.\n"
+                    },
+                    "isActive": {
+                        "type": "boolean",
+                        "description": "Whether the maintenance window is active.\n"
+                    },
+                    "isRecurring": {
+                        "type": "boolean",
+                        "description": "Whether the maintenance window is recurring.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the maintenance window.\n"
+                    },
+                    "organizationId": {
+                        "type": "integer",
+                        "description": "Organization that owns the window. REQUIRED for non-superadmin callers; omit only for a superadmin platform-global\nwindow.\n"
+                    },
+                    "projectIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "description": "List of project IDs included in the maintenance window.\n"
+                    },
+                    "recurrencePattern": {
+                        "type": "string",
+                        "description": "Recurrence as JSON when is_recurring=true, e.g.\njsonencode({type=\"weekly\",days=[0,3],time=\"02:00\",duration_minutes=120}). days: Mon=0..Sun=6.\n"
+                    },
+                    "startTime": {
+                        "type": "string",
+                        "description": "Start time in RFC3339 format.\n"
+                    },
+                    "timezone": {
+                        "type": "string",
+                        "description": "Timezone for the maintenance window.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "systeam:index/notificationChannel:NotificationChannel": {
+            "properties": {
+                "channelType": {
+                    "type": "string",
+                    "description": "Channel type.\n"
+                },
+                "config": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Channel configuration as key-value pairs. Keys and values depend on the channel_type.\n"
+                },
+                "isActive": {
+                    "type": "boolean",
+                    "description": "Whether the channel is active.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Notification channel name.\n"
+                },
+                "organizationId": {
+                    "type": "integer",
+                    "description": "Organization ID that owns this channel.\n"
+                }
+            },
+            "required": [
+                "channelType",
+                "config",
+                "isActive",
+                "name"
+            ],
+            "inputProperties": {
+                "channelType": {
+                    "type": "string",
+                    "description": "Channel type.\n"
+                },
+                "config": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Channel configuration as key-value pairs. Keys and values depend on the channel_type.\n"
+                },
+                "isActive": {
+                    "type": "boolean",
+                    "description": "Whether the channel is active.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Notification channel name.\n"
+                },
+                "organizationId": {
+                    "type": "integer",
+                    "description": "Organization ID that owns this channel.\n"
+                }
+            },
+            "requiredInputs": [
+                "channelType",
+                "config",
+                "name"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering NotificationChannel resources.\n",
+                "properties": {
+                    "channelType": {
+                        "type": "string",
+                        "description": "Channel type.\n"
+                    },
+                    "config": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "Channel configuration as key-value pairs. Keys and values depend on the channel_type.\n"
+                    },
+                    "isActive": {
+                        "type": "boolean",
+                        "description": "Whether the channel is active.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Notification channel name.\n"
+                    },
+                    "organizationId": {
+                        "type": "integer",
+                        "description": "Organization ID that owns this channel.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "systeam:index/oncallSchedule:OncallSchedule": {
+            "properties": {
+                "isActive": {
+                    "type": "boolean",
+                    "description": "Whether the on-call schedule is active.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the on-call schedule.\n"
+                },
+                "organizationId": {
+                    "type": "integer",
+                    "description": "The ID of the organization this schedule belongs to.\n"
+                },
+                "participants": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/systeam:index/OncallScheduleParticipant:OncallScheduleParticipant"
+                    },
+                    "description": "Participants in the on-call rotation.\n"
+                },
+                "rotationType": {
+                    "type": "string",
+                    "description": "Rotation type: DAILY or WEEKLY.\n"
+                },
+                "timezone": {
+                    "type": "string",
+                    "description": "Timezone for the schedule (e.g. 'Europe/Warsaw', 'UTC').\n"
+                }
+            },
+            "required": [
+                "isActive",
+                "name",
+                "organizationId",
+                "rotationType",
+                "timezone"
+            ],
+            "inputProperties": {
+                "isActive": {
+                    "type": "boolean",
+                    "description": "Whether the on-call schedule is active.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the on-call schedule.\n"
+                },
+                "organizationId": {
+                    "type": "integer",
+                    "description": "The ID of the organization this schedule belongs to.\n"
+                },
+                "participants": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/systeam:index/OncallScheduleParticipant:OncallScheduleParticipant"
+                    },
+                    "description": "Participants in the on-call rotation.\n"
+                },
+                "rotationType": {
+                    "type": "string",
+                    "description": "Rotation type: DAILY or WEEKLY.\n"
+                },
+                "timezone": {
+                    "type": "string",
+                    "description": "Timezone for the schedule (e.g. 'Europe/Warsaw', 'UTC').\n"
+                }
+            },
+            "requiredInputs": [
+                "name",
+                "organizationId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering OncallSchedule resources.\n",
+                "properties": {
+                    "isActive": {
+                        "type": "boolean",
+                        "description": "Whether the on-call schedule is active.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the on-call schedule.\n"
+                    },
+                    "organizationId": {
+                        "type": "integer",
+                        "description": "The ID of the organization this schedule belongs to.\n"
+                    },
+                    "participants": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/systeam:index/OncallScheduleParticipant:OncallScheduleParticipant"
+                        },
+                        "description": "Participants in the on-call rotation.\n"
+                    },
+                    "rotationType": {
+                        "type": "string",
+                        "description": "Rotation type: DAILY or WEEKLY.\n"
+                    },
+                    "timezone": {
+                        "type": "string",
+                        "description": "Timezone for the schedule (e.g. 'Europe/Warsaw', 'UTC').\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "systeam:index/playbook:Playbook": {
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "An optional description.\n"
+                },
+                "isActive": {
+                    "type": "boolean",
+                    "description": "Whether the playbook is active.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The playbook name (1-200 chars).\n"
+                },
+                "organizationId": {
+                    "type": "integer",
+                    "description": "The organization this playbook belongs to.\n"
+                },
+                "serviceId": {
+                    "type": "integer",
+                    "description": "Optionally scope the playbook to a service.\n"
+                },
+                "steps": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/systeam:index/PlaybookStep:PlaybookStep"
+                    },
+                    "description": "Ordered steps executed when the playbook runs.\n"
+                },
+                "suppressDefaultNotifications": {
+                    "type": "boolean",
+                    "description": "Suppress the product's default notifications while this playbook runs.\n"
+                },
+                "triggerConditions": {
+                    "type": "string",
+                    "description": "JSON object of extra conditions the trigger must match.\n"
+                },
+                "triggerType": {
+                    "type": "string",
+                    "description": "What fires the playbook: check_status_change, inbound_incident_created, inbound_status_change, manual.\n"
+                }
+            },
+            "required": [
+                "description",
+                "isActive",
+                "name",
+                "organizationId",
+                "suppressDefaultNotifications",
+                "triggerConditions",
+                "triggerType"
+            ],
+            "inputProperties": {
+                "description": {
+                    "type": "string",
+                    "description": "An optional description.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The playbook name (1-200 chars).\n"
+                },
+                "organizationId": {
+                    "type": "integer",
+                    "description": "The organization this playbook belongs to.\n"
+                },
+                "serviceId": {
+                    "type": "integer",
+                    "description": "Optionally scope the playbook to a service.\n"
+                },
+                "steps": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/systeam:index/PlaybookStep:PlaybookStep"
+                    },
+                    "description": "Ordered steps executed when the playbook runs.\n"
+                },
+                "suppressDefaultNotifications": {
+                    "type": "boolean",
+                    "description": "Suppress the product's default notifications while this playbook runs.\n"
+                },
+                "triggerConditions": {
+                    "type": "string",
+                    "description": "JSON object of extra conditions the trigger must match.\n"
+                },
+                "triggerType": {
+                    "type": "string",
+                    "description": "What fires the playbook: check_status_change, inbound_incident_created, inbound_status_change, manual.\n"
+                }
+            },
+            "requiredInputs": [
+                "name",
+                "organizationId",
+                "triggerType"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Playbook resources.\n",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "An optional description.\n"
+                    },
+                    "isActive": {
+                        "type": "boolean",
+                        "description": "Whether the playbook is active.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The playbook name (1-200 chars).\n"
+                    },
+                    "organizationId": {
+                        "type": "integer",
+                        "description": "The organization this playbook belongs to.\n"
+                    },
+                    "serviceId": {
+                        "type": "integer",
+                        "description": "Optionally scope the playbook to a service.\n"
+                    },
+                    "steps": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/systeam:index/PlaybookStep:PlaybookStep"
+                        },
+                        "description": "Ordered steps executed when the playbook runs.\n"
+                    },
+                    "suppressDefaultNotifications": {
+                        "type": "boolean",
+                        "description": "Suppress the product's default notifications while this playbook runs.\n"
+                    },
+                    "triggerConditions": {
+                        "type": "string",
+                        "description": "JSON object of extra conditions the trigger must match.\n"
+                    },
+                    "triggerType": {
+                        "type": "string",
+                        "description": "What fires the playbook: check_status_change, inbound_incident_created, inbound_status_change, manual.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "systeam:index/project:Project": {
+            "properties": {
+                "accessControlEnabled": {
+                    "type": "boolean",
+                    "description": "Whether access control is enabled for this project.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the project.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the project.\n"
+                },
+                "organizationId": {
+                    "type": "integer",
+                    "description": "The ID of the organization this project belongs to.\n"
+                }
+            },
+            "required": [
+                "accessControlEnabled",
+                "description",
+                "name",
+                "organizationId"
+            ],
+            "inputProperties": {
+                "accessControlEnabled": {
+                    "type": "boolean",
+                    "description": "Whether access control is enabled for this project.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the project.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the project.\n"
+                },
+                "organizationId": {
+                    "type": "integer",
+                    "description": "The ID of the organization this project belongs to.\n"
+                }
+            },
+            "requiredInputs": [
+                "name",
+                "organizationId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Project resources.\n",
+                "properties": {
+                    "accessControlEnabled": {
+                        "type": "boolean",
+                        "description": "Whether access control is enabled for this project.\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "A description of the project.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the project.\n"
+                    },
+                    "organizationId": {
+                        "type": "integer",
+                        "description": "The ID of the organization this project belongs to.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "systeam:index/service:Service": {
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "An optional description.\n"
+                },
+                "docsUrl": {
+                    "type": "string",
+                    "description": "Link to the service's documentation.\n"
+                },
+                "escalationPolicyId": {
+                    "type": "integer",
+                    "description": "The escalation policy incidents on this service route to.\n"
+                },
+                "isActive": {
+                    "type": "boolean",
+                    "description": "Whether the service is active.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The service's display name.\n"
+                },
+                "notificationChannelIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "description": "Notification channels attached to this service.\n"
+                },
+                "organizationId": {
+                    "type": "integer",
+                    "description": "The ID of the organization this service belongs to.\n"
+                },
+                "ownerTeamId": {
+                    "type": "integer",
+                    "description": "The team that owns this service.\n"
+                },
+                "repoUrl": {
+                    "type": "string",
+                    "description": "Link to the service's source repository.\n"
+                },
+                "slug": {
+                    "type": "string",
+                    "description": "URL-safe identifier, generated from the name.\n"
+                },
+                "tier": {
+                    "type": "string",
+                    "description": "Criticality tier: P1 (highest) through P4.\n"
+                }
+            },
+            "required": [
+                "description",
+                "docsUrl",
+                "isActive",
+                "name",
+                "notificationChannelIds",
+                "organizationId",
+                "repoUrl",
+                "slug",
+                "tier"
+            ],
+            "inputProperties": {
+                "description": {
+                    "type": "string",
+                    "description": "An optional description.\n"
+                },
+                "docsUrl": {
+                    "type": "string",
+                    "description": "Link to the service's documentation.\n"
+                },
+                "escalationPolicyId": {
+                    "type": "integer",
+                    "description": "The escalation policy incidents on this service route to.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The service's display name.\n"
+                },
+                "notificationChannelIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "description": "Notification channels attached to this service.\n"
+                },
+                "organizationId": {
+                    "type": "integer",
+                    "description": "The ID of the organization this service belongs to.\n"
+                },
+                "ownerTeamId": {
+                    "type": "integer",
+                    "description": "The team that owns this service.\n"
+                },
+                "repoUrl": {
+                    "type": "string",
+                    "description": "Link to the service's source repository.\n"
+                },
+                "tier": {
+                    "type": "string",
+                    "description": "Criticality tier: P1 (highest) through P4.\n"
+                }
+            },
+            "requiredInputs": [
+                "name",
+                "organizationId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Service resources.\n",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "An optional description.\n"
+                    },
+                    "docsUrl": {
+                        "type": "string",
+                        "description": "Link to the service's documentation.\n"
+                    },
+                    "escalationPolicyId": {
+                        "type": "integer",
+                        "description": "The escalation policy incidents on this service route to.\n"
+                    },
+                    "isActive": {
+                        "type": "boolean",
+                        "description": "Whether the service is active.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The service's display name.\n"
+                    },
+                    "notificationChannelIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "description": "Notification channels attached to this service.\n"
+                    },
+                    "organizationId": {
+                        "type": "integer",
+                        "description": "The ID of the organization this service belongs to.\n"
+                    },
+                    "ownerTeamId": {
+                        "type": "integer",
+                        "description": "The team that owns this service.\n"
+                    },
+                    "repoUrl": {
+                        "type": "string",
+                        "description": "Link to the service's source repository.\n"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "description": "URL-safe identifier, generated from the name.\n"
+                    },
+                    "tier": {
+                        "type": "string",
+                        "description": "Criticality tier: P1 (highest) through P4.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "systeam:index/statusPage:StatusPage": {
+            "properties": {
+                "checkIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "description": "List of check IDs to display on the status page.\n"
+                },
+                "customDomain": {
+                    "type": "string",
+                    "description": "Custom domain for the status page.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Status page description.\n"
+                },
+                "isActive": {
+                    "type": "boolean",
+                    "description": "Whether the status page is active.\n"
+                },
+                "isPublic": {
+                    "type": "boolean",
+                    "description": "Whether the status page is publicly accessible.\n"
+                },
+                "logoUrl": {
+                    "type": "string",
+                    "description": "URL of the logo to display on the status page.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Status page name.\n"
+                },
+                "organizationId": {
+                    "type": "integer",
+                    "description": "Organization ID that owns this status page.\n"
+                },
+                "slug": {
+                    "type": "string",
+                    "description": "URL-friendly identifier for the status page.\n"
+                }
+            },
+            "required": [
+                "checkIds",
+                "isActive",
+                "isPublic",
+                "name",
+                "organizationId",
+                "slug"
+            ],
+            "inputProperties": {
+                "checkIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "description": "List of check IDs to display on the status page.\n"
+                },
+                "customDomain": {
+                    "type": "string",
+                    "description": "Custom domain for the status page.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Status page description.\n"
+                },
+                "isActive": {
+                    "type": "boolean",
+                    "description": "Whether the status page is active.\n"
+                },
+                "isPublic": {
+                    "type": "boolean",
+                    "description": "Whether the status page is publicly accessible.\n"
+                },
+                "logoUrl": {
+                    "type": "string",
+                    "description": "URL of the logo to display on the status page.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Status page name.\n"
+                },
+                "organizationId": {
+                    "type": "integer",
+                    "description": "Organization ID that owns this status page.\n"
+                },
+                "slug": {
+                    "type": "string",
+                    "description": "URL-friendly identifier for the status page.\n"
+                }
+            },
+            "requiredInputs": [
+                "checkIds",
+                "name",
+                "organizationId",
+                "slug"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering StatusPage resources.\n",
+                "properties": {
+                    "checkIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "description": "List of check IDs to display on the status page.\n"
+                    },
+                    "customDomain": {
+                        "type": "string",
+                        "description": "Custom domain for the status page.\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Status page description.\n"
+                    },
+                    "isActive": {
+                        "type": "boolean",
+                        "description": "Whether the status page is active.\n"
+                    },
+                    "isPublic": {
+                        "type": "boolean",
+                        "description": "Whether the status page is publicly accessible.\n"
+                    },
+                    "logoUrl": {
+                        "type": "string",
+                        "description": "URL of the logo to display on the status page.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Status page name.\n"
+                    },
+                    "organizationId": {
+                        "type": "integer",
+                        "description": "Organization ID that owns this status page.\n"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "description": "URL-friendly identifier for the status page.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "systeam:index/team:Team": {
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "An optional description of the team.\n"
+                },
+                "isActive": {
+                    "type": "boolean",
+                    "description": "Whether the team is active.\n"
+                },
+                "memberCount": {
+                    "type": "integer",
+                    "description": "Number of members in the team.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The team's display name.\n"
+                },
+                "organizationId": {
+                    "type": "integer",
+                    "description": "The ID of the organization this team belongs to.\n"
+                },
+                "slug": {
+                    "type": "string",
+                    "description": "URL-safe identifier. Generated from the name when omitted; cannot be changed afterwards.\n"
+                }
+            },
+            "required": [
+                "description",
+                "isActive",
+                "memberCount",
+                "name",
+                "organizationId",
+                "slug"
+            ],
+            "inputProperties": {
+                "description": {
+                    "type": "string",
+                    "description": "An optional description of the team.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The team's display name.\n"
+                },
+                "organizationId": {
+                    "type": "integer",
+                    "description": "The ID of the organization this team belongs to.\n"
+                },
+                "slug": {
+                    "type": "string",
+                    "description": "URL-safe identifier. Generated from the name when omitted; cannot be changed afterwards.\n"
+                }
+            },
+            "requiredInputs": [
+                "name",
+                "organizationId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Team resources.\n",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "An optional description of the team.\n"
+                    },
+                    "isActive": {
+                        "type": "boolean",
+                        "description": "Whether the team is active.\n"
+                    },
+                    "memberCount": {
+                        "type": "integer",
+                        "description": "Number of members in the team.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The team's display name.\n"
+                    },
+                    "organizationId": {
+                        "type": "integer",
+                        "description": "The ID of the organization this team belongs to.\n"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "description": "URL-safe identifier. Generated from the name when omitted; cannot be changed afterwards.\n"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "functions": {
+        "systeam:index/getOrganization:getOrganization": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getOrganization.\n",
+                "properties": {
+                    "slug": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "slug"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getOrganization.\n",
+                "properties": {
+                    "description": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "slug": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "description",
+                    "id",
+                    "name",
+                    "slug"
+                ]
+            }
+        }
+    }
+}

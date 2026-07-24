@@ -1,0 +1,3 @@
+name: systeam-example
+runtime: python
+description: Example SysTeam Monitoring Pulumi project
