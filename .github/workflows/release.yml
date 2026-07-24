@@ -4,10 +4,10 @@ name: release
 #   git tag v0.1.0 && git push origin v0.1.0
 #
 # This builds the pulumi-resource-systeam plugin binaries (attached to the
-# GitHub Release, where Pulumi resolves them from) and publishes the Python SDK
-# `pulumi_systeam` to PyPI.
+# GitHub Release, where Pulumi resolves them from) and publishes the committed
+# Python SDK `pulumi_systeam` to PyPI.
 #
-# Required repository secrets (Settings -> Secrets and variables -> Actions):
+# Required repository secret (Settings -> Secrets and variables -> Actions):
 #   PYPI_API_TOKEN  - a PyPI API token (the token value; username is __token__)
 # GITHUB_TOKEN is provided automatically.
 
@@ -24,6 +24,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # GoReleaser needs full history/tags
 
       - name: Derive version from tag
         id: v
@@ -34,20 +36,8 @@ jobs:
           go-version-file: go.mod
           cache: true
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Generate schema + Python SDK
-        run: make generate_sdk
-
-      - name: Stamp SDK version
-        env:
-          VERSION: ${{ steps.v.outputs.version }}
-        run: |
-          sed -i "s/^VERSION = \"0.0.0\"\$/VERSION = \"${VERSION}\"/" sdk/python/setup.py
-          grep -n '^VERSION' sdk/python/setup.py
-
+      # GoReleaser must run FIRST, on a clean tree — it refuses to release from
+      # a dirty working directory. It only needs the committed Go sources.
       - name: Release plugin binaries (GoReleaser)
         uses: goreleaser/goreleaser-action@v6
         with:
@@ -55,6 +45,19 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # Stamp the version into the committed SDK, then build + upload. This runs
+      # after GoReleaser so the tree-mutating steps don't trip its dirty check.
+      - name: Stamp SDK version
+        env:
+          VERSION: ${{ steps.v.outputs.version }}
+        run: |
+          sed -i "s/^VERSION = \"0.0.0\"\$/VERSION = \"${VERSION}\"/" sdk/python/setup.py
+          grep -n '^VERSION' sdk/python/setup.py
 
       - name: Build + publish Python SDK to PyPI
         run: |
