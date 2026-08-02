@@ -3,11 +3,11 @@ package provider
 import (
 	_ "embed"
 
-	"github.com/systeampl/pulumi-systeam/provider/pkg/version"
-	"github.com/systeampl/terraform-provider-systeam/shim"
 	pfbridge "github.com/pulumi/pulumi-terraform-bridge/pf/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge/tokens"
+	"github.com/systeampl/pulumi-systeam/provider/pkg/version"
+	"github.com/systeampl/terraform-provider-systeam/shim"
 )
 
 const (
@@ -53,7 +53,13 @@ func Provider() tfbridge.ProviderInfo {
 			"systeam_playbook":                 {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Playbook"), ComputeID: idField},
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
-			"systeam_organization": {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getOrganization")},
+			"systeam_organization":         {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getOrganization")},
+			"systeam_team":                 {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getTeam")},
+			"systeam_service":              {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getService")},
+			"systeam_project":              {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getProject")},
+			"systeam_escalation_policy":    {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getEscalationPolicy")},
+			"systeam_oncall_schedule":      {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getOncallSchedule")},
+			"systeam_notification_channel": {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getNotificationChannel")},
 		},
 		Python: &tfbridge.PythonInfo{
 			PackageName: "pulumi_systeam",

@@ -26,10 +26,7 @@ class GetOrganizationResult:
     """
     A collection of values returned by getOrganization.
     """
-    def __init__(__self__, description=None, id=None, name=None, slug=None):
-        if description and not isinstance(description, str):
-            raise TypeError("Expected argument 'description' to be a str")
-        pulumi.set(__self__, "description", description)
+    def __init__(__self__, id=None, name=None, slug=None):
         if id and not isinstance(id, int):
             raise TypeError("Expected argument 'id' to be a int")
         pulumi.set(__self__, "id", id)
@@ -39,14 +36,6 @@ class GetOrganizationResult:
         if slug and not isinstance(slug, str):
             raise TypeError("Expected argument 'slug' to be a str")
         pulumi.set(__self__, "slug", slug)
-
-    @property
-    @pulumi.getter
-    def description(self) -> str:
-        """
-        A description of the organization.
-        """
-        return pulumi.get(self, "description")
 
     @property
     @pulumi.getter
@@ -79,7 +68,6 @@ class AwaitableGetOrganizationResult(GetOrganizationResult):
         if False:
             yield self
         return GetOrganizationResult(
-            description=self.description,
             id=self.id,
             name=self.name,
             slug=self.slug)
@@ -99,7 +87,6 @@ def get_organization(slug: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('systeam:index/getOrganization:getOrganization', __args__, opts=opts, typ=GetOrganizationResult).value
 
     return AwaitableGetOrganizationResult(
-        description=pulumi.get(__ret__, 'description'),
         id=pulumi.get(__ret__, 'id'),
         name=pulumi.get(__ret__, 'name'),
         slug=pulumi.get(__ret__, 'slug'))
@@ -116,7 +103,6 @@ def get_organization_output(slug: Optional[pulumi.Input[str]] = None,
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('systeam:index/getOrganization:getOrganization', __args__, opts=opts, typ=GetOrganizationResult)
     return __ret__.apply(lambda __response__: GetOrganizationResult(
-        description=pulumi.get(__response__, 'description'),
         id=pulumi.get(__response__, 'id'),
         name=pulumi.get(__response__, 'name'),
         slug=pulumi.get(__response__, 'slug')))

@@ -10,7 +10,13 @@ from .check import *
 from .check_slo import *
 from .contact_method import *
 from .escalation_policy import *
+from .get_escalation_policy import *
+from .get_notification_channel import *
+from .get_oncall_schedule import *
 from .get_organization import *
+from .get_project import *
+from .get_service import *
+from .get_team import *
 from .integration_key import *
 from .lifecycle_watch import *
 from .maintenance_window import *

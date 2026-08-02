@@ -3086,6 +3086,173 @@
         }
     },
     "functions": {
+        "systeam:index/getEscalationPolicy:getEscalationPolicy": {
+            "description": "Look up an existing escalation policy by name within an organization.\n",
+            "inputs": {
+                "description": "A collection of arguments for invoking getEscalationPolicy.\n",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the escalation policy to look up.\n"
+                    },
+                    "organizationId": {
+                        "type": "integer",
+                        "description": "The organization the escalation policy belongs to.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "organizationId"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getEscalationPolicy.\n",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "The unique identifier of the escalation policy.\n"
+                    },
+                    "isActive": {
+                        "type": "boolean",
+                        "description": "Whether the escalation policy is active.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the escalation policy to look up.\n"
+                    },
+                    "organizationId": {
+                        "type": "integer",
+                        "description": "The organization the escalation policy belongs to.\n"
+                    },
+                    "teamId": {
+                        "type": "integer",
+                        "description": "The team the escalation policy belongs to.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "isActive",
+                    "name",
+                    "organizationId",
+                    "teamId"
+                ]
+            }
+        },
+        "systeam:index/getNotificationChannel:getNotificationChannel": {
+            "description": "Look up an existing notification channel by name within an organization.\n",
+            "inputs": {
+                "description": "A collection of arguments for invoking getNotificationChannel.\n",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the notification channel to look up.\n"
+                    },
+                    "organizationId": {
+                        "type": "integer",
+                        "description": "The organization the notification channel belongs to.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "organizationId"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getNotificationChannel.\n",
+                "properties": {
+                    "channelType": {
+                        "type": "string",
+                        "description": "The notification channel type.\n"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "description": "The unique identifier of the notification channel.\n"
+                    },
+                    "isActive": {
+                        "type": "boolean",
+                        "description": "Whether the notification channel is active.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the notification channel to look up.\n"
+                    },
+                    "organizationId": {
+                        "type": "integer",
+                        "description": "The organization the notification channel belongs to.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "channelType",
+                    "id",
+                    "isActive",
+                    "name",
+                    "organizationId"
+                ]
+            }
+        },
+        "systeam:index/getOncallSchedule:getOncallSchedule": {
+            "description": "Look up an existing on-call schedule by name within an organization.\n",
+            "inputs": {
+                "description": "A collection of arguments for invoking getOncallSchedule.\n",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the on-call schedule to look up.\n"
+                    },
+                    "organizationId": {
+                        "type": "integer",
+                        "description": "The organization the on-call schedule belongs to.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "organizationId"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getOncallSchedule.\n",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "The unique identifier of the on-call schedule.\n"
+                    },
+                    "isActive": {
+                        "type": "boolean",
+                        "description": "Whether the on-call schedule is active.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the on-call schedule to look up.\n"
+                    },
+                    "organizationId": {
+                        "type": "integer",
+                        "description": "The organization the on-call schedule belongs to.\n"
+                    },
+                    "teamId": {
+                        "type": "integer",
+                        "description": "The identifier of the team the on-call schedule belongs to.\n"
+                    },
+                    "timezone": {
+                        "type": "string",
+                        "description": "The timezone of the on-call schedule.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "isActive",
+                    "name",
+                    "organizationId",
+                    "teamId",
+                    "timezone"
+                ]
+            }
+        },
         "systeam:index/getOrganization:getOrganization": {
             "description": "Look up a SysTeam Healthchecks organization by slug.\n",
             "inputs": {
@@ -3104,10 +3271,6 @@
             "outputs": {
                 "description": "A collection of values returned by getOrganization.\n",
                 "properties": {
-                    "description": {
-                        "type": "string",
-                        "description": "A description of the organization.\n"
-                    },
                     "id": {
                         "type": "integer",
                         "description": "The unique identifier of the organization.\n"
@@ -3123,9 +3286,180 @@
                 },
                 "type": "object",
                 "required": [
+                    "id",
+                    "name",
+                    "slug"
+                ]
+            }
+        },
+        "systeam:index/getProject:getProject": {
+            "description": "Look up an existing project by name within an organization.\n",
+            "inputs": {
+                "description": "A collection of arguments for invoking getProject.\n",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the project to look up.\n"
+                    },
+                    "organizationId": {
+                        "type": "integer",
+                        "description": "The organization the project belongs to.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "organizationId"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getProject.\n",
+                "properties": {
+                    "accessControlEnabled": {
+                        "type": "boolean",
+                        "description": "Whether access control is enabled for the project.\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "The project description.\n"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "description": "The unique identifier of the project.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the project to look up.\n"
+                    },
+                    "organizationId": {
+                        "type": "integer",
+                        "description": "The organization the project belongs to.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "accessControlEnabled",
                     "description",
                     "id",
                     "name",
+                    "organizationId"
+                ]
+            }
+        },
+        "systeam:index/getService:getService": {
+            "description": "Look up an existing service by name within an organization.\n",
+            "inputs": {
+                "description": "A collection of arguments for invoking getService.\n",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the service to look up.\n"
+                    },
+                    "organizationId": {
+                        "type": "integer",
+                        "description": "The organization the service belongs to.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "organizationId"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getService.\n",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "The unique identifier of the service.\n"
+                    },
+                    "isActive": {
+                        "type": "boolean",
+                        "description": "Whether the service is active.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the service to look up.\n"
+                    },
+                    "organizationId": {
+                        "type": "integer",
+                        "description": "The organization the service belongs to.\n"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "description": "The service slug.\n"
+                    },
+                    "tier": {
+                        "type": "string",
+                        "description": "The service tier.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "isActive",
+                    "name",
+                    "organizationId",
+                    "slug",
+                    "tier"
+                ]
+            }
+        },
+        "systeam:index/getTeam:getTeam": {
+            "description": "Look up an existing team by name within an organization.\n",
+            "inputs": {
+                "description": "A collection of arguments for invoking getTeam.\n",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the team to look up.\n"
+                    },
+                    "organizationId": {
+                        "type": "integer",
+                        "description": "The organization the team belongs to.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "organizationId"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getTeam.\n",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "The team description.\n"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "description": "The unique identifier of the team.\n"
+                    },
+                    "isActive": {
+                        "type": "boolean",
+                        "description": "Whether the team is active.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the team to look up.\n"
+                    },
+                    "organizationId": {
+                        "type": "integer",
+                        "description": "The organization the team belongs to.\n"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "description": "The team slug.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "description",
+                    "id",
+                    "isActive",
+                    "name",
+                    "organizationId",
                     "slug"
                 ]
             }
