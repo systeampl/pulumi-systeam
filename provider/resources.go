@@ -1,11 +1,15 @@
 package provider
 
 import (
+	"context"
 	_ "embed"
+	"fmt"
+	"strconv"
 
 	pfbridge "github.com/pulumi/pulumi-terraform-bridge/pf/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge/tokens"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/systeampl/pulumi-systeam/provider/pkg/version"
 	"github.com/systeampl/terraform-provider-systeam/shim"
 )
@@ -19,7 +23,27 @@ const (
 var bridgeMetadata []byte
 
 // All resources use the TF "id" (computed) as the Pulumi resource ID.
-var idField = tfbridge.DelegateIDField("id", "systeam", "https://github.com/systeampl/terraform-provider-systeam")
+// The API returns integer ids, but a Pulumi resource ID must be a string.
+// tfbridge.DelegateIDField requires the delegated field to already be a string
+// and fails with "expected 'id' to be a string, found number", so stringify the
+// numeric id here (agent registration tokens already carry a composite string id).
+func numericIDField(field string) tfbridge.ComputeID {
+	return func(_ context.Context, state resource.PropertyMap) (resource.ID, error) {
+		v, ok := state[resource.PropertyKey(field)]
+		if !ok || v.IsNull() {
+			return "", fmt.Errorf("no %q in state to use as the resource id", field)
+		}
+		if v.IsNumber() {
+			return resource.ID(strconv.FormatInt(int64(v.NumberValue()), 10)), nil
+		}
+		if v.IsString() {
+			return resource.ID(v.StringValue()), nil
+		}
+		return "", fmt.Errorf("%q is neither a number nor a string; cannot use as id", field)
+	}
+}
+
+var idField = numericIDField("id")
 
 func Provider() tfbridge.ProviderInfo {
 	prov := tfbridge.ProviderInfo{
