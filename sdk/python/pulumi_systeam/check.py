@@ -32,6 +32,9 @@ class CheckArgs:
                  auth_password: Optional[pulumi.Input[str]] = None,
                  auth_username: Optional[pulumi.Input[str]] = None,
                  check_source_critical: Optional[pulumi.Input[str]] = None,
+                 content_change_enabled: Optional[pulumi.Input[bool]] = None,
+                 content_change_severity: Optional[pulumi.Input[str]] = None,
+                 content_ignore_patterns: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  content_match_case_sensitive: Optional[pulumi.Input[bool]] = None,
                  content_match_enabled: Optional[pulumi.Input[bool]] = None,
                  content_match_text: Optional[pulumi.Input[str]] = None,
@@ -66,6 +69,7 @@ class CheckArgs:
                  ftp_path: Optional[pulumi.Input[str]] = None,
                  ftp_protocol: Optional[pulumi.Input[str]] = None,
                  ftp_username: Optional[pulumi.Input[str]] = None,
+                 geo_content_consistency_enabled: Optional[pulumi.Input[bool]] = None,
                  geo_monitoring_enabled: Optional[pulumi.Input[bool]] = None,
                  grace_period: Optional[pulumi.Input[int]] = None,
                  host: Optional[pulumi.Input[str]] = None,
@@ -124,6 +128,9 @@ class CheckArgs:
         :param pulumi.Input[str] auth_password: HTTP basic-auth password. Write-only: encrypted server-side, never read back.
         :param pulumi.Input[str] auth_username: HTTP basic-auth username.
         :param pulumi.Input[str] check_source_critical: Per-source criticality config as JSON.
+        :param pulumi.Input[bool] content_change_enabled: Alert when the response content changes unexpectedly.
+        :param pulumi.Input[str] content_change_severity: notify, degraded, or down.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] content_ignore_patterns: Regex patterns to ignore when detecting content changes (e.g. timestamps).
         :param pulumi.Input[bool] content_match_case_sensitive: Case-sensitive content match.
         :param pulumi.Input[bool] content_match_enabled: Enable response content matching.
         :param pulumi.Input[str] content_match_text: Text or regex to match in the response.
@@ -158,6 +165,7 @@ class CheckArgs:
         :param pulumi.Input[str] ftp_path: Path to list/verify.
         :param pulumi.Input[str] ftp_protocol: FTP, FTPS or SFTP.
         :param pulumi.Input[str] ftp_username: FTP username (empty for anonymous).
+        :param pulumi.Input[bool] geo_content_consistency_enabled: Alert when geo-distributed agents see inconsistent content.
         :param pulumi.Input[bool] geo_monitoring_enabled: Enable geo-distributed monitoring.
         :param pulumi.Input[int] grace_period: Grace period in seconds before marking as down.
         :param pulumi.Input[str] host: Host to check (icmp, tcp, udp, dns, ftp checks).
@@ -225,6 +233,12 @@ class CheckArgs:
             pulumi.set(__self__, "auth_username", auth_username)
         if check_source_critical is not None:
             pulumi.set(__self__, "check_source_critical", check_source_critical)
+        if content_change_enabled is not None:
+            pulumi.set(__self__, "content_change_enabled", content_change_enabled)
+        if content_change_severity is not None:
+            pulumi.set(__self__, "content_change_severity", content_change_severity)
+        if content_ignore_patterns is not None:
+            pulumi.set(__self__, "content_ignore_patterns", content_ignore_patterns)
         if content_match_case_sensitive is not None:
             pulumi.set(__self__, "content_match_case_sensitive", content_match_case_sensitive)
         if content_match_enabled is not None:
@@ -293,6 +307,8 @@ class CheckArgs:
             pulumi.set(__self__, "ftp_protocol", ftp_protocol)
         if ftp_username is not None:
             pulumi.set(__self__, "ftp_username", ftp_username)
+        if geo_content_consistency_enabled is not None:
+            pulumi.set(__self__, "geo_content_consistency_enabled", geo_content_consistency_enabled)
         if geo_monitoring_enabled is not None:
             pulumi.set(__self__, "geo_monitoring_enabled", geo_monitoring_enabled)
         if grace_period is not None:
@@ -535,6 +551,42 @@ class CheckArgs:
     @check_source_critical.setter
     def check_source_critical(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "check_source_critical", value)
+
+    @property
+    @pulumi.getter(name="contentChangeEnabled")
+    def content_change_enabled(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Alert when the response content changes unexpectedly.
+        """
+        return pulumi.get(self, "content_change_enabled")
+
+    @content_change_enabled.setter
+    def content_change_enabled(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "content_change_enabled", value)
+
+    @property
+    @pulumi.getter(name="contentChangeSeverity")
+    def content_change_severity(self) -> Optional[pulumi.Input[str]]:
+        """
+        notify, degraded, or down.
+        """
+        return pulumi.get(self, "content_change_severity")
+
+    @content_change_severity.setter
+    def content_change_severity(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "content_change_severity", value)
+
+    @property
+    @pulumi.getter(name="contentIgnorePatterns")
+    def content_ignore_patterns(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        Regex patterns to ignore when detecting content changes (e.g. timestamps).
+        """
+        return pulumi.get(self, "content_ignore_patterns")
+
+    @content_ignore_patterns.setter
+    def content_ignore_patterns(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "content_ignore_patterns", value)
 
     @property
     @pulumi.getter(name="contentMatchCaseSensitive")
@@ -943,6 +995,18 @@ class CheckArgs:
     @ftp_username.setter
     def ftp_username(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "ftp_username", value)
+
+    @property
+    @pulumi.getter(name="geoContentConsistencyEnabled")
+    def geo_content_consistency_enabled(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Alert when geo-distributed agents see inconsistent content.
+        """
+        return pulumi.get(self, "geo_content_consistency_enabled")
+
+    @geo_content_consistency_enabled.setter
+    def geo_content_consistency_enabled(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "geo_content_consistency_enabled", value)
 
     @property
     @pulumi.getter(name="geoMonitoringEnabled")
@@ -1474,6 +1538,9 @@ class _CheckState:
                  auth_password: Optional[pulumi.Input[str]] = None,
                  auth_username: Optional[pulumi.Input[str]] = None,
                  check_source_critical: Optional[pulumi.Input[str]] = None,
+                 content_change_enabled: Optional[pulumi.Input[bool]] = None,
+                 content_change_severity: Optional[pulumi.Input[str]] = None,
+                 content_ignore_patterns: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  content_match_case_sensitive: Optional[pulumi.Input[bool]] = None,
                  content_match_enabled: Optional[pulumi.Input[bool]] = None,
                  content_match_text: Optional[pulumi.Input[str]] = None,
@@ -1508,6 +1575,7 @@ class _CheckState:
                  ftp_path: Optional[pulumi.Input[str]] = None,
                  ftp_protocol: Optional[pulumi.Input[str]] = None,
                  ftp_username: Optional[pulumi.Input[str]] = None,
+                 geo_content_consistency_enabled: Optional[pulumi.Input[bool]] = None,
                  geo_monitoring_enabled: Optional[pulumi.Input[bool]] = None,
                  grace_period: Optional[pulumi.Input[int]] = None,
                  host: Optional[pulumi.Input[str]] = None,
@@ -1566,6 +1634,9 @@ class _CheckState:
         :param pulumi.Input[str] auth_password: HTTP basic-auth password. Write-only: encrypted server-side, never read back.
         :param pulumi.Input[str] auth_username: HTTP basic-auth username.
         :param pulumi.Input[str] check_source_critical: Per-source criticality config as JSON.
+        :param pulumi.Input[bool] content_change_enabled: Alert when the response content changes unexpectedly.
+        :param pulumi.Input[str] content_change_severity: notify, degraded, or down.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] content_ignore_patterns: Regex patterns to ignore when detecting content changes (e.g. timestamps).
         :param pulumi.Input[bool] content_match_case_sensitive: Case-sensitive content match.
         :param pulumi.Input[bool] content_match_enabled: Enable response content matching.
         :param pulumi.Input[str] content_match_text: Text or regex to match in the response.
@@ -1600,6 +1671,7 @@ class _CheckState:
         :param pulumi.Input[str] ftp_path: Path to list/verify.
         :param pulumi.Input[str] ftp_protocol: FTP, FTPS or SFTP.
         :param pulumi.Input[str] ftp_username: FTP username (empty for anonymous).
+        :param pulumi.Input[bool] geo_content_consistency_enabled: Alert when geo-distributed agents see inconsistent content.
         :param pulumi.Input[bool] geo_monitoring_enabled: Enable geo-distributed monitoring.
         :param pulumi.Input[int] grace_period: Grace period in seconds before marking as down.
         :param pulumi.Input[str] host: Host to check (icmp, tcp, udp, dns, ftp checks).
@@ -1667,6 +1739,12 @@ class _CheckState:
             pulumi.set(__self__, "auth_username", auth_username)
         if check_source_critical is not None:
             pulumi.set(__self__, "check_source_critical", check_source_critical)
+        if content_change_enabled is not None:
+            pulumi.set(__self__, "content_change_enabled", content_change_enabled)
+        if content_change_severity is not None:
+            pulumi.set(__self__, "content_change_severity", content_change_severity)
+        if content_ignore_patterns is not None:
+            pulumi.set(__self__, "content_ignore_patterns", content_ignore_patterns)
         if content_match_case_sensitive is not None:
             pulumi.set(__self__, "content_match_case_sensitive", content_match_case_sensitive)
         if content_match_enabled is not None:
@@ -1735,6 +1813,8 @@ class _CheckState:
             pulumi.set(__self__, "ftp_protocol", ftp_protocol)
         if ftp_username is not None:
             pulumi.set(__self__, "ftp_username", ftp_username)
+        if geo_content_consistency_enabled is not None:
+            pulumi.set(__self__, "geo_content_consistency_enabled", geo_content_consistency_enabled)
         if geo_monitoring_enabled is not None:
             pulumi.set(__self__, "geo_monitoring_enabled", geo_monitoring_enabled)
         if grace_period is not None:
@@ -1947,6 +2027,42 @@ class _CheckState:
     @check_source_critical.setter
     def check_source_critical(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "check_source_critical", value)
+
+    @property
+    @pulumi.getter(name="contentChangeEnabled")
+    def content_change_enabled(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Alert when the response content changes unexpectedly.
+        """
+        return pulumi.get(self, "content_change_enabled")
+
+    @content_change_enabled.setter
+    def content_change_enabled(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "content_change_enabled", value)
+
+    @property
+    @pulumi.getter(name="contentChangeSeverity")
+    def content_change_severity(self) -> Optional[pulumi.Input[str]]:
+        """
+        notify, degraded, or down.
+        """
+        return pulumi.get(self, "content_change_severity")
+
+    @content_change_severity.setter
+    def content_change_severity(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "content_change_severity", value)
+
+    @property
+    @pulumi.getter(name="contentIgnorePatterns")
+    def content_ignore_patterns(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        Regex patterns to ignore when detecting content changes (e.g. timestamps).
+        """
+        return pulumi.get(self, "content_ignore_patterns")
+
+    @content_ignore_patterns.setter
+    def content_ignore_patterns(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "content_ignore_patterns", value)
 
     @property
     @pulumi.getter(name="contentMatchCaseSensitive")
@@ -2355,6 +2471,18 @@ class _CheckState:
     @ftp_username.setter
     def ftp_username(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "ftp_username", value)
+
+    @property
+    @pulumi.getter(name="geoContentConsistencyEnabled")
+    def geo_content_consistency_enabled(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Alert when geo-distributed agents see inconsistent content.
+        """
+        return pulumi.get(self, "geo_content_consistency_enabled")
+
+    @geo_content_consistency_enabled.setter
+    def geo_content_consistency_enabled(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "geo_content_consistency_enabled", value)
 
     @property
     @pulumi.getter(name="geoMonitoringEnabled")
@@ -2924,6 +3052,9 @@ class Check(pulumi.CustomResource):
                  auth_password: Optional[pulumi.Input[str]] = None,
                  auth_username: Optional[pulumi.Input[str]] = None,
                  check_source_critical: Optional[pulumi.Input[str]] = None,
+                 content_change_enabled: Optional[pulumi.Input[bool]] = None,
+                 content_change_severity: Optional[pulumi.Input[str]] = None,
+                 content_ignore_patterns: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  content_match_case_sensitive: Optional[pulumi.Input[bool]] = None,
                  content_match_enabled: Optional[pulumi.Input[bool]] = None,
                  content_match_text: Optional[pulumi.Input[str]] = None,
@@ -2958,6 +3089,7 @@ class Check(pulumi.CustomResource):
                  ftp_path: Optional[pulumi.Input[str]] = None,
                  ftp_protocol: Optional[pulumi.Input[str]] = None,
                  ftp_username: Optional[pulumi.Input[str]] = None,
+                 geo_content_consistency_enabled: Optional[pulumi.Input[bool]] = None,
                  geo_monitoring_enabled: Optional[pulumi.Input[bool]] = None,
                  grace_period: Optional[pulumi.Input[int]] = None,
                  host: Optional[pulumi.Input[str]] = None,
@@ -3020,6 +3152,9 @@ class Check(pulumi.CustomResource):
         :param pulumi.Input[str] auth_password: HTTP basic-auth password. Write-only: encrypted server-side, never read back.
         :param pulumi.Input[str] auth_username: HTTP basic-auth username.
         :param pulumi.Input[str] check_source_critical: Per-source criticality config as JSON.
+        :param pulumi.Input[bool] content_change_enabled: Alert when the response content changes unexpectedly.
+        :param pulumi.Input[str] content_change_severity: notify, degraded, or down.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] content_ignore_patterns: Regex patterns to ignore when detecting content changes (e.g. timestamps).
         :param pulumi.Input[bool] content_match_case_sensitive: Case-sensitive content match.
         :param pulumi.Input[bool] content_match_enabled: Enable response content matching.
         :param pulumi.Input[str] content_match_text: Text or regex to match in the response.
@@ -3054,6 +3189,7 @@ class Check(pulumi.CustomResource):
         :param pulumi.Input[str] ftp_path: Path to list/verify.
         :param pulumi.Input[str] ftp_protocol: FTP, FTPS or SFTP.
         :param pulumi.Input[str] ftp_username: FTP username (empty for anonymous).
+        :param pulumi.Input[bool] geo_content_consistency_enabled: Alert when geo-distributed agents see inconsistent content.
         :param pulumi.Input[bool] geo_monitoring_enabled: Enable geo-distributed monitoring.
         :param pulumi.Input[int] grace_period: Grace period in seconds before marking as down.
         :param pulumi.Input[str] host: Host to check (icmp, tcp, udp, dns, ftp checks).
@@ -3135,6 +3271,9 @@ class Check(pulumi.CustomResource):
                  auth_password: Optional[pulumi.Input[str]] = None,
                  auth_username: Optional[pulumi.Input[str]] = None,
                  check_source_critical: Optional[pulumi.Input[str]] = None,
+                 content_change_enabled: Optional[pulumi.Input[bool]] = None,
+                 content_change_severity: Optional[pulumi.Input[str]] = None,
+                 content_ignore_patterns: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  content_match_case_sensitive: Optional[pulumi.Input[bool]] = None,
                  content_match_enabled: Optional[pulumi.Input[bool]] = None,
                  content_match_text: Optional[pulumi.Input[str]] = None,
@@ -3169,6 +3308,7 @@ class Check(pulumi.CustomResource):
                  ftp_path: Optional[pulumi.Input[str]] = None,
                  ftp_protocol: Optional[pulumi.Input[str]] = None,
                  ftp_username: Optional[pulumi.Input[str]] = None,
+                 geo_content_consistency_enabled: Optional[pulumi.Input[bool]] = None,
                  geo_monitoring_enabled: Optional[pulumi.Input[bool]] = None,
                  grace_period: Optional[pulumi.Input[int]] = None,
                  host: Optional[pulumi.Input[str]] = None,
@@ -3234,6 +3374,9 @@ class Check(pulumi.CustomResource):
             __props__.__dict__["auth_password"] = None if auth_password is None else pulumi.Output.secret(auth_password)
             __props__.__dict__["auth_username"] = auth_username
             __props__.__dict__["check_source_critical"] = check_source_critical
+            __props__.__dict__["content_change_enabled"] = content_change_enabled
+            __props__.__dict__["content_change_severity"] = content_change_severity
+            __props__.__dict__["content_ignore_patterns"] = content_ignore_patterns
             __props__.__dict__["content_match_case_sensitive"] = content_match_case_sensitive
             __props__.__dict__["content_match_enabled"] = content_match_enabled
             __props__.__dict__["content_match_text"] = content_match_text
@@ -3268,6 +3411,7 @@ class Check(pulumi.CustomResource):
             __props__.__dict__["ftp_path"] = ftp_path
             __props__.__dict__["ftp_protocol"] = ftp_protocol
             __props__.__dict__["ftp_username"] = ftp_username
+            __props__.__dict__["geo_content_consistency_enabled"] = geo_content_consistency_enabled
             __props__.__dict__["geo_monitoring_enabled"] = geo_monitoring_enabled
             __props__.__dict__["grace_period"] = grace_period
             __props__.__dict__["host"] = host
@@ -3342,6 +3486,9 @@ class Check(pulumi.CustomResource):
             auth_password: Optional[pulumi.Input[str]] = None,
             auth_username: Optional[pulumi.Input[str]] = None,
             check_source_critical: Optional[pulumi.Input[str]] = None,
+            content_change_enabled: Optional[pulumi.Input[bool]] = None,
+            content_change_severity: Optional[pulumi.Input[str]] = None,
+            content_ignore_patterns: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             content_match_case_sensitive: Optional[pulumi.Input[bool]] = None,
             content_match_enabled: Optional[pulumi.Input[bool]] = None,
             content_match_text: Optional[pulumi.Input[str]] = None,
@@ -3376,6 +3523,7 @@ class Check(pulumi.CustomResource):
             ftp_path: Optional[pulumi.Input[str]] = None,
             ftp_protocol: Optional[pulumi.Input[str]] = None,
             ftp_username: Optional[pulumi.Input[str]] = None,
+            geo_content_consistency_enabled: Optional[pulumi.Input[bool]] = None,
             geo_monitoring_enabled: Optional[pulumi.Input[bool]] = None,
             grace_period: Optional[pulumi.Input[int]] = None,
             host: Optional[pulumi.Input[str]] = None,
@@ -3439,6 +3587,9 @@ class Check(pulumi.CustomResource):
         :param pulumi.Input[str] auth_password: HTTP basic-auth password. Write-only: encrypted server-side, never read back.
         :param pulumi.Input[str] auth_username: HTTP basic-auth username.
         :param pulumi.Input[str] check_source_critical: Per-source criticality config as JSON.
+        :param pulumi.Input[bool] content_change_enabled: Alert when the response content changes unexpectedly.
+        :param pulumi.Input[str] content_change_severity: notify, degraded, or down.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] content_ignore_patterns: Regex patterns to ignore when detecting content changes (e.g. timestamps).
         :param pulumi.Input[bool] content_match_case_sensitive: Case-sensitive content match.
         :param pulumi.Input[bool] content_match_enabled: Enable response content matching.
         :param pulumi.Input[str] content_match_text: Text or regex to match in the response.
@@ -3473,6 +3624,7 @@ class Check(pulumi.CustomResource):
         :param pulumi.Input[str] ftp_path: Path to list/verify.
         :param pulumi.Input[str] ftp_protocol: FTP, FTPS or SFTP.
         :param pulumi.Input[str] ftp_username: FTP username (empty for anonymous).
+        :param pulumi.Input[bool] geo_content_consistency_enabled: Alert when geo-distributed agents see inconsistent content.
         :param pulumi.Input[bool] geo_monitoring_enabled: Enable geo-distributed monitoring.
         :param pulumi.Input[int] grace_period: Grace period in seconds before marking as down.
         :param pulumi.Input[str] host: Host to check (icmp, tcp, udp, dns, ftp checks).
@@ -3534,6 +3686,9 @@ class Check(pulumi.CustomResource):
         __props__.__dict__["auth_password"] = auth_password
         __props__.__dict__["auth_username"] = auth_username
         __props__.__dict__["check_source_critical"] = check_source_critical
+        __props__.__dict__["content_change_enabled"] = content_change_enabled
+        __props__.__dict__["content_change_severity"] = content_change_severity
+        __props__.__dict__["content_ignore_patterns"] = content_ignore_patterns
         __props__.__dict__["content_match_case_sensitive"] = content_match_case_sensitive
         __props__.__dict__["content_match_enabled"] = content_match_enabled
         __props__.__dict__["content_match_text"] = content_match_text
@@ -3568,6 +3723,7 @@ class Check(pulumi.CustomResource):
         __props__.__dict__["ftp_path"] = ftp_path
         __props__.__dict__["ftp_protocol"] = ftp_protocol
         __props__.__dict__["ftp_username"] = ftp_username
+        __props__.__dict__["geo_content_consistency_enabled"] = geo_content_consistency_enabled
         __props__.__dict__["geo_monitoring_enabled"] = geo_monitoring_enabled
         __props__.__dict__["grace_period"] = grace_period
         __props__.__dict__["host"] = host
@@ -3695,6 +3851,30 @@ class Check(pulumi.CustomResource):
         Per-source criticality config as JSON.
         """
         return pulumi.get(self, "check_source_critical")
+
+    @property
+    @pulumi.getter(name="contentChangeEnabled")
+    def content_change_enabled(self) -> pulumi.Output[bool]:
+        """
+        Alert when the response content changes unexpectedly.
+        """
+        return pulumi.get(self, "content_change_enabled")
+
+    @property
+    @pulumi.getter(name="contentChangeSeverity")
+    def content_change_severity(self) -> pulumi.Output[str]:
+        """
+        notify, degraded, or down.
+        """
+        return pulumi.get(self, "content_change_severity")
+
+    @property
+    @pulumi.getter(name="contentIgnorePatterns")
+    def content_ignore_patterns(self) -> pulumi.Output[Sequence[str]]:
+        """
+        Regex patterns to ignore when detecting content changes (e.g. timestamps).
+        """
+        return pulumi.get(self, "content_ignore_patterns")
 
     @property
     @pulumi.getter(name="contentMatchCaseSensitive")
@@ -3969,6 +4149,14 @@ class Check(pulumi.CustomResource):
         return pulumi.get(self, "ftp_username")
 
     @property
+    @pulumi.getter(name="geoContentConsistencyEnabled")
+    def geo_content_consistency_enabled(self) -> pulumi.Output[bool]:
+        """
+        Alert when geo-distributed agents see inconsistent content.
+        """
+        return pulumi.get(self, "geo_content_consistency_enabled")
+
+    @property
     @pulumi.getter(name="geoMonitoringEnabled")
     def geo_monitoring_enabled(self) -> pulumi.Output[bool]:
         """
@@ -4026,7 +4214,7 @@ class Check(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="httpFormLoginData")
-    def http_form_login_data(self) -> pulumi.Output[str]:
+    def http_form_login_data(self) -> pulumi.Output[Optional[str]]:
         """
         Form fields for HTTP form login as a JSON object, e.g. jsonencode({username="u",password="p"}).
         """

@@ -5,7 +5,8 @@ go 1.25.8
 require (
 	github.com/pulumi/pulumi-terraform-bridge/pf v0.47.0
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.96.0
-	github.com/systeampl/terraform-provider-systeam v0.2.0
+	github.com/pulumi/pulumi/sdk/v3 v3.142.0
+	github.com/systeampl/terraform-provider-systeam v0.3.0
 )
 
 require (
@@ -131,7 +132,6 @@ require (
 	github.com/pulumi/pulumi-java/pkg v0.17.0 // indirect
 	github.com/pulumi/pulumi-yaml v1.11.2 // indirect
 	github.com/pulumi/pulumi/pkg/v3 v3.140.0 // indirect
-	github.com/pulumi/pulumi/sdk/v3 v3.142.0 // indirect
 	github.com/pulumi/schema-tools v0.1.2 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/rogpeppe/go-internal v1.14.1 // indirect
@@ -147,7 +147,7 @@ require (
 	github.com/spf13/cast v1.5.0 // indirect
 	github.com/spf13/cobra v1.8.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	github.com/systeampl/syschecks-go v0.3.3 // indirect
+	github.com/systeampl/syschecks-go v0.4.0 // indirect
 	github.com/teekennedy/goldmark-markdown v0.3.0 // indirect
 	github.com/texttheater/golang-levenshtein v1.0.1 // indirect
 	github.com/uber/jaeger-client-go v2.30.0+incompatible // indirect

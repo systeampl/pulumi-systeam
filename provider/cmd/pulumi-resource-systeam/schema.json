@@ -320,6 +320,21 @@
                     "type": "string",
                     "description": "Per-source criticality config as JSON.\n"
                 },
+                "contentChangeEnabled": {
+                    "type": "boolean",
+                    "description": "Alert when the response content changes unexpectedly.\n"
+                },
+                "contentChangeSeverity": {
+                    "type": "string",
+                    "description": "notify, degraded, or down.\n"
+                },
+                "contentIgnorePatterns": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Regex patterns to ignore when detecting content changes (e.g. timestamps).\n"
+                },
                 "contentMatchCaseSensitive": {
                     "type": "boolean",
                     "description": "Case-sensitive content match.\n"
@@ -463,6 +478,10 @@
                 "ftpUsername": {
                     "type": "string",
                     "description": "FTP username (empty for anonymous).\n"
+                },
+                "geoContentConsistencyEnabled": {
+                    "type": "boolean",
+                    "description": "Alert when geo-distributed agents see inconsistent content.\n"
                 },
                 "geoMonitoringEnabled": {
                     "type": "boolean",
@@ -658,6 +677,9 @@
                 "authMethod",
                 "authUsername",
                 "checkSourceCritical",
+                "contentChangeEnabled",
+                "contentChangeSeverity",
+                "contentIgnorePatterns",
                 "contentMatchCaseSensitive",
                 "contentMatchEnabled",
                 "contentMatchText",
@@ -689,6 +711,7 @@
                 "ftpPath",
                 "ftpProtocol",
                 "ftpUsername",
+                "geoContentConsistencyEnabled",
                 "geoMonitoringEnabled",
                 "gracePeriod",
                 "host",
@@ -696,7 +719,6 @@
                 "httpBodyType",
                 "httpFollowRedirects",
                 "httpFormCheckAfterLoginUrl",
-                "httpFormLoginData",
                 "httpFormLoginEnabled",
                 "httpFormLoginSuccessText",
                 "httpFormLoginUrl",
@@ -782,6 +804,21 @@
                 "checkSourceCritical": {
                     "type": "string",
                     "description": "Per-source criticality config as JSON.\n"
+                },
+                "contentChangeEnabled": {
+                    "type": "boolean",
+                    "description": "Alert when the response content changes unexpectedly.\n"
+                },
+                "contentChangeSeverity": {
+                    "type": "string",
+                    "description": "notify, degraded, or down.\n"
+                },
+                "contentIgnorePatterns": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Regex patterns to ignore when detecting content changes (e.g. timestamps).\n"
                 },
                 "contentMatchCaseSensitive": {
                     "type": "boolean",
@@ -926,6 +963,10 @@
                 "ftpUsername": {
                     "type": "string",
                     "description": "FTP username (empty for anonymous).\n"
+                },
+                "geoContentConsistencyEnabled": {
+                    "type": "boolean",
+                    "description": "Alert when geo-distributed agents see inconsistent content.\n"
                 },
                 "geoMonitoringEnabled": {
                     "type": "boolean",
@@ -1168,6 +1209,21 @@
                         "type": "string",
                         "description": "Per-source criticality config as JSON.\n"
                     },
+                    "contentChangeEnabled": {
+                        "type": "boolean",
+                        "description": "Alert when the response content changes unexpectedly.\n"
+                    },
+                    "contentChangeSeverity": {
+                        "type": "string",
+                        "description": "notify, degraded, or down.\n"
+                    },
+                    "contentIgnorePatterns": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Regex patterns to ignore when detecting content changes (e.g. timestamps).\n"
+                    },
                     "contentMatchCaseSensitive": {
                         "type": "boolean",
                         "description": "Case-sensitive content match.\n"
@@ -1311,6 +1367,10 @@
                     "ftpUsername": {
                         "type": "string",
                         "description": "FTP username (empty for anonymous).\n"
+                    },
+                    "geoContentConsistencyEnabled": {
+                        "type": "boolean",
+                        "description": "Alert when geo-distributed agents see inconsistent content.\n"
                     },
                     "geoMonitoringEnabled": {
                         "type": "boolean",

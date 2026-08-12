@@ -822,10 +822,10 @@ github.com/stretchr/testify v1.8.0/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO
 github.com/stretchr/testify v1.8.1/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o6fzry7u4=
 github.com/stretchr/testify v1.11.1 h1:7s2iGBzp5EwR7/aIZr8ao5+dra3wiQyKjjFuvgVKu7U=
 github.com/stretchr/testify v1.11.1/go.mod h1:wZwfW3scLgRK+23gO65QZefKpKQRnfz6sD981Nm4B6U=
-github.com/systeampl/syschecks-go v0.3.3 h1:+3O6cWz3rUvwXW2Z3hciVp184KyF3uaTGunCRDCRb7Y=
-github.com/systeampl/syschecks-go v0.3.3/go.mod h1:ctk1T8iRaFEwURqvtfV4PWSC8Pd4EfApUp0UEhM04qY=
-github.com/systeampl/terraform-provider-systeam v0.2.0 h1:e4+WoLOT8VMaVHScVYci9P486iadFWnZI00734N+HAQ=
-github.com/systeampl/terraform-provider-systeam v0.2.0/go.mod h1:SXOlh2t3beDjkeH1vfP6WfDdAJIrAtQrlIVxuyDUnHM=
+github.com/systeampl/syschecks-go v0.4.0 h1:gETRSs/gX14dWf3NEz2ka9wsD2KjZVo4VJsVczzAGbo=
+github.com/systeampl/syschecks-go v0.4.0/go.mod h1:ctk1T8iRaFEwURqvtfV4PWSC8Pd4EfApUp0UEhM04qY=
+github.com/systeampl/terraform-provider-systeam v0.3.0 h1:Y2SyWBAUPWJVEK3PNPFTKl92OXldTgpGQDEsRGPs1Rc=
+github.com/systeampl/terraform-provider-systeam v0.3.0/go.mod h1:ABzTGkl4VjVZ5kEI+2U6q4Q3ZpynLUClLi7OKRvz3Ac=
 github.com/teekennedy/goldmark-markdown v0.3.0 h1:ik9/biVGCwGWFg8dQ3KVm2pQ/wiiG0whYiUcz9xH0W8=
 github.com/teekennedy/goldmark-markdown v0.3.0/go.mod h1:kMhDz8La77A9UHvJGsxejd0QUflN9sS+QXCqnhmxmNo=
 github.com/texttheater/golang-levenshtein v1.0.1 h1:+cRNoVrfiwufQPhoMzB6N0Yf/Mqajr6t1lOv8GyGE2U=
